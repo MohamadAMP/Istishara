@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "602342408109",
+    "project_id": "istishara-8ba86",
+    "storage_bucket": "istishara-8ba86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:602342408109:android:d9a2110ca0429ac8ca6b24",
+        "android_client_info": {
+          "package_name": "com.example.istishara"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "602342408109-1a7rqcs713kd5qg3kmj4hcf9f50g1krt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.istishara",
+            "certificate_hash": "1f20548acef5d7ae6b14234afc5a9a9364d15b02"
+          }
+        },
+        {
+          "client_id": "602342408109-go8gv133cmuh94mlklvmd2p8bmn7c4dd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBdbJeZJkUaRIt4p-0cu_Taw5CtAaAKgE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "602342408109-go8gv133cmuh94mlklvmd2p8bmn7c4dd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
