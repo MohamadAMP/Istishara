@@ -15,11 +15,11 @@ class FormScreen extends StatefulWidget {
 
 class _FormScreenState extends State<FormScreen> {
   String _fieldofWork; //dropdownvalue
-  // String _fieldofStudy;
-  // String _phone;
-  // String _url;
+  String _fieldofStudy;
+  String _phone;
+  String _url;
 
-  // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   void submit() {
     var user = new UserData(widget.user.displayName, widget.user.email,
@@ -65,47 +65,47 @@ class _FormScreenState extends State<FormScreen> {
     );
   }
 
-  // Widget _buildStudyfield() {
-  //   return TextFormField(
-  //     decoration: InputDecoration(labelText: "Field of Study"),
-  //     // ignore: missing_return
-  //     validator: (String value) {
-  //       if (value.isEmpty) {
-  //         return "Field of Study Required";
-  //       }
-  //     },
-  //     onSaved: (String value) {
-  //       _fieldofStudy = value;
-  //     },
-  //   );
-  // }
+  Widget _buildStudyfield() {
+    return TextFormField(
+      decoration: InputDecoration(labelText: "Field of Study"),
+      // ignore: missing_return
+      validator: (String value) {
+        if (value.isEmpty) {
+          return "Field of Study Required";
+        }
+      },
+      onSaved: (String value) {
+        _fieldofStudy = value;
+      },
+    );
+  }
 
-  // Widget _buildphonefield() {
-  //   return TextFormField(
-  //     decoration: InputDecoration(labelText: 'Phone number'),
-  //     keyboardType: TextInputType.phone,
-  //     validator: (String value) {
-  //       if (value.isEmpty) {
-  //         return 'Phone number is Required';
-  //       }
+  Widget _buildphonefield() {
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Phone number'),
+      keyboardType: TextInputType.phone,
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Phone number is Required';
+        }
 
-  //       return null;
-  //     },
-  //     onSaved: (String value) {
-  //       _url = value;
-  //     },
-  //   );
-  // }
+        return null;
+      },
+      onSaved: (String value) {
+        _url = value;
+      },
+    );
+  }
 
-  // Widget _buildURLfield() {
-  //   return TextFormField(
-  //     decoration: InputDecoration(labelText: 'LinkedIn or Portfolio URL'),
-  //     keyboardType: TextInputType.url,
-  //     onSaved: (String value) {
-  //       _url = value;
-  //     },
-  //   );
-  // }
+  Widget _buildURLfield() {
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'LinkedIn or Portfolio URL'),
+      keyboardType: TextInputType.url,
+      onSaved: (String value) {
+        _url = value;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,10 +118,10 @@ class _FormScreenState extends State<FormScreen> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                  //_buildStudyfield(),
+                  _buildStudyfield(),
                   _buildWork(),
-                  //_buildphonefield(),
-                  //_buildURLfield(),
+                  _buildphonefield(),
+                  _buildURLfield(),
                   SizedBox(height: 35),
                   RaisedButton(
                     child: Text("Submit"),
