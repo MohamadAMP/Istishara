@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:istishara/auth.dart';
+import 'package:istishara/categorySelection.dart';
 import 'package:istishara/selectRole.dart';
+
+import 'database.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -22,16 +25,47 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   User user;
+  Set users;
+
+  void updateUsers() {
+    getAllUsers().then((users) => {
+          this.setState(() {
+            this.users = users;
+          })
+        });
+  }
 
   @override
   void initState() {
     super.initState();
     signOut();
+    updateUsers();
   }
+
+  // bool contains(User user) {
+  //   print(
+  //       users.where((item) => item.uid == user.uid && item.role == 'Client') !=
+  //           null);
+  //   return users
+  //           .where((item) => item.uid == user.uid && item.role == 'Client') !=
+  //       null;
+  // }
 
   void click() {
     signInWithGoogle().then((user) => {
           this.user = user,
+          // if (contains(user))
+          //   {
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //             builder: (context) => CategorySelection(user)))
+          //   },
+          // if (!contains(user))
+          //   {
+          //     Navigator.push(context,
+          //         MaterialPageRoute(builder: (context) => RoleSelection(user)))
+          //   }
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => RoleSelection(user)))
         });

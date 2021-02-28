@@ -1,28 +1,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:istishara/database.dart';
-import 'post.dart';
-import 'postList.dart';
-import 'textInput.dart';
 
-class MyHomePage extends StatefulWidget {
+import '../post.dart';
+import '../textInput.dart';
+import 'postListClient.dart';
+
+class QuestionsID extends StatefulWidget {
   final User user;
 
-  MyHomePage(this.user);
+  QuestionsID(this.user);
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  QuestionsIDState createState() => QuestionsIDState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class QuestionsIDState extends State<QuestionsID> {
   List<Post> posts = [];
-
-  void newPost(String text) {
-    var post = new Post(text, widget.user.displayName);
-    post.setId(savePost(post));
-    this.setState(() {
-      posts.add(post);
-    });
-  }
 
   void updatePosts() {
     getAllPosts().then((posts) => {
@@ -30,6 +23,15 @@ class _MyHomePageState extends State<MyHomePage> {
             this.posts = posts;
           })
         });
+  }
+
+  void newPost(String text) {
+    var post = new Post(text, widget.user.displayName, 'Interior Design');
+    post.setId(savePost(post));
+    this.setState(() {
+      posts.add(post);
+      updatePosts();
+    });
   }
 
   @override
@@ -45,7 +47,9 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text('Istishara'),
         ),
         body: Column(children: <Widget>[
-          Expanded(child: PostList(this.posts, widget.user)),
+          Expanded(
+              child:
+                  PostListClient(this.posts, widget.user, 'Interior Design')),
           TextInputWidget(this.newPost),
         ]));
   }

@@ -5,10 +5,11 @@ import 'package:istishara/database.dart';
 class Post {
   String body;
   String author;
+  String type;
   Set usersAnswered = {};
   DatabaseReference _id;
 
-  Post(this.body, this.author);
+  Post(this.body, this.author, this.type);
 
   void answerPost(User user) {
     if (this.usersAnswered.contains(user.uid)) {
@@ -31,7 +32,8 @@ class Post {
     return {
       'author': this.author,
       'usersAnswered': this.usersAnswered.toList(),
-      'body': this.body
+      'body': this.body,
+      'type': this.type
     };
   }
 }
@@ -40,12 +42,14 @@ Post createPost(record) {
   Map<String, dynamic> attributes = {
     'author': '',
     'usersAnswered': [],
-    'body': ''
+    'body': '',
+    'type': ''
   };
 
   record.forEach((key, value) => {attributes[key] = value});
 
-  Post post = new Post(attributes['body'], attributes['author']);
+  Post post =
+      new Post(attributes['body'], attributes['author'], attributes['type']);
   post.usersAnswered = new Set.from(attributes['usersAnswered']);
   return post;
 }

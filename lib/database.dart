@@ -34,3 +34,34 @@ Future<List<Post>> getAllPosts() async {
 
   return posts;
 }
+
+Future<Set> getAllUid() async {
+  DataSnapshot dataSnapshot = await databaseReference.child('users/').once();
+
+  Set uid = {};
+
+  if (dataSnapshot.value != null) {
+    dataSnapshot.value.forEach((uid, value) {
+      var uid = value;
+      uid.add(uid);
+    });
+  }
+
+  return uid;
+}
+
+Future<Set> getAllUsers() async {
+  DataSnapshot dataSnapshot = await databaseReference.child('users/').once();
+
+  Set users = {};
+
+  if (dataSnapshot.value != null) {
+    dataSnapshot.value.forEach((key, value) {
+      UserData user = createUser(value);
+      user.setId(databaseReference.child('users/' + key));
+      users.add(user);
+    });
+  }
+
+  return users;
+}

@@ -22,3 +22,18 @@ class UserData {
     };
   }
 }
+
+UserData createUser(record) {
+  Map<String, dynamic> attributes = {
+    'name': '',
+    'email': '',
+    'uid': '',
+    'role': ''
+  };
+
+  record.forEach((key, value) => {attributes[key] = value});
+
+  UserData user = new UserData(attributes['name'], attributes['email'],
+      attributes['uid'], attributes['role']);
+  return user;
+}
