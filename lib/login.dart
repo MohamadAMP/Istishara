@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:istishara/auth.dart';
-import 'package:istishara/categorySelection.dart';
 import 'package:istishara/selectRole.dart';
 
 import 'database.dart';

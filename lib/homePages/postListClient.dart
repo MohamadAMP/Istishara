@@ -30,6 +30,9 @@ class _PostListClientState extends State<PostListClient> {
         var post = this.widget.listItems[index];
         if (post.type == widget.type) {
           return Card(
+            shape: new RoundedRectangleBorder(
+                side: new BorderSide(color: Colors.grey[400], width: 2.0),
+                borderRadius: BorderRadius.circular(4.0)),
             child: Row(
               children: <Widget>[
                 Expanded(

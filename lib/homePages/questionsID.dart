@@ -26,7 +26,8 @@ class QuestionsIDState extends State<QuestionsID> {
   }
 
   void newPost(String text) {
-    var post = new Post(text, widget.user.displayName, 'Interior Design');
+    var post = new Post(
+        text, widget.user.displayName, 'Interior Design', widget.user.uid);
     post.setId(savePost(post));
     this.setState(() {
       posts.add(post);

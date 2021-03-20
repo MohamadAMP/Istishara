@@ -1,20 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:istishara/displayUserQuestions.dart';
+import 'package:istishara/post.dart';
+
 import 'package:istishara/database.dart';
 
-import '../post.dart';
-import '../textInput.dart';
-import 'postListClient.dart';
-
-class QuestionsCivil extends StatefulWidget {
+class ClientQuestions extends StatefulWidget {
   final User user;
 
-  QuestionsCivil(this.user);
+  ClientQuestions(this.user);
   @override
-  QuestionsCivilState createState() => QuestionsCivilState();
+  ClientQuestionsState createState() => ClientQuestionsState();
 }
 
-class QuestionsCivilState extends State<QuestionsCivil> {
+class ClientQuestionsState extends State<ClientQuestions> {
   List<Post> posts = [];
 
   void updatePosts() {
@@ -27,7 +26,7 @@ class QuestionsCivilState extends State<QuestionsCivil> {
 
   void newPost(String text) {
     var post = new Post(
-        text, widget.user.displayName, 'Civil Engineering', widget.user.uid);
+        text, widget.user.displayName, 'Architecture', widget.user.uid);
     post.setId(savePost(post));
     this.setState(() {
       posts.add(post);
@@ -49,9 +48,8 @@ class QuestionsCivilState extends State<QuestionsCivil> {
         ),
         body: Column(children: <Widget>[
           Expanded(
-              child:
-                  PostListClient(this.posts, widget.user, 'Civil Engineering')),
-          TextInputWidget(this.newPost),
+              child: DisplayUserQuestions(
+                  this.posts, widget.user, 'Architecture')),
         ]));
   }
 }

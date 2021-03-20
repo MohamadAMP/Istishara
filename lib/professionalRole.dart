@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:istishara/homePages/baseProfessionalHomepage.dart';
 import 'database.dart';
-import 'homePages/homePageProfessional.dart';
 import 'userData.dart';
 
 class FormScreen extends StatefulWidget {
@@ -25,14 +25,16 @@ class _FormScreenState extends State<FormScreen> {
     var user = new UserData(widget.user.displayName, widget.user.email,
         widget.user.uid, _fieldofWork);
 
-    getAllUid().then((uids) => {
-          print(uids),
-          if (!uids.contains(widget.user.uid)) {user.setId(addUser(user))}
-        });
+    user.setId(addUser(user));
+    // getAllUid().then((uids) => {
+    //       print(uids),
+    //       if (!uids.contains(widget.user.uid)) {user.setId(addUser(user))}
+    //     });
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => MyHomePagePro(widget.user, user.role)));
+            builder: (context) =>
+                BaseProfessionalHomepage(widget.user, user.role)));
   }
 
   Widget _buildWork() {

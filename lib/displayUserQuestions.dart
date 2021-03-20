@@ -1,20 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:istishara/post.dart';
 
-import '../post.dart';
-
-class PostList extends StatefulWidget {
-  final type;
+// ignore: must_be_immutable
+class DisplayUserQuestions extends StatefulWidget {
+  String type;
   final User user;
   final List<Post> listItems;
 
-  PostList(this.listItems, this.user, this.type);
+  DisplayUserQuestions(this.listItems, this.user, this.type);
 
   @override
-  _PostListState createState() => _PostListState();
+  _DisplayUserQuestionsState createState() => _DisplayUserQuestionsState();
 }
 
-class _PostListState extends State<PostList> {
+class _DisplayUserQuestionsState extends State<DisplayUserQuestions> {
   void post(Function callBack) {
     this.setState(() {
       callBack();
@@ -28,7 +28,7 @@ class _PostListState extends State<PostList> {
       // ignore: missing_return
       itemBuilder: (context, index) {
         var post = this.widget.listItems[index];
-        if (post.type == widget.type) {
+        if (post.uid == widget.user.uid) {
           return Card(
             shape: new RoundedRectangleBorder(
                 side: new BorderSide(color: Colors.grey[400], width: 2.0),
@@ -49,13 +49,6 @@ class _PostListState extends State<PostList> {
                       ),
                       padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
                     ),
-                    IconButton(
-                        icon: Icon(Icons.inbox),
-                        onPressed: () =>
-                            this.post(() => post.answerPost(widget.user)),
-                        color: post.usersAnswered.contains(widget.user.uid)
-                            ? Colors.green
-                            : Colors.black)
                   ],
                 )
               ],

@@ -3,13 +3,14 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:istishara/database.dart';
 
 class Post {
+  String uid;
   String body;
   String author;
   String type;
   Set usersAnswered = {};
   DatabaseReference _id;
 
-  Post(this.body, this.author, this.type);
+  Post(this.body, this.author, this.type, this.uid);
 
   void answerPost(User user) {
     if (this.usersAnswered.contains(user.uid)) {
@@ -33,7 +34,8 @@ class Post {
       'author': this.author,
       'usersAnswered': this.usersAnswered.toList(),
       'body': this.body,
-      'type': this.type
+      'type': this.type,
+      'uid': this.uid,
     };
   }
 }
@@ -43,13 +45,14 @@ Post createPost(record) {
     'author': '',
     'usersAnswered': [],
     'body': '',
-    'type': ''
+    'type': '',
+    'uid': ''
   };
 
   record.forEach((key, value) => {attributes[key] = value});
 
-  Post post =
-      new Post(attributes['body'], attributes['author'], attributes['type']);
+  Post post = new Post(attributes['body'], attributes['author'],
+      attributes['type'], attributes['uid']);
   post.usersAnswered = new Set.from(attributes['usersAnswered']);
   return post;
 }

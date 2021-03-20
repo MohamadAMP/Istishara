@@ -52,7 +52,7 @@ class _CategorySelection extends State<CategorySelection> {
         ),
         body: ListView(children: <Widget>[
           Column(children: <Widget>[
-            SizedBox(height: 45),
+            SizedBox(height: 35),
             Container(
               width: 350,
               padding: EdgeInsets.all(10),
@@ -83,7 +83,7 @@ class _CategorySelection extends State<CategorySelection> {
                 ),
               ),
             ),
-            SizedBox(height: 45),
+            SizedBox(height: 35),
             Container(
               width: 350,
               padding: EdgeInsets.all(10),
@@ -114,7 +114,7 @@ class _CategorySelection extends State<CategorySelection> {
                 ),
               ),
             ),
-            SizedBox(height: 45),
+            SizedBox(height: 35),
             Container(
               width: 350,
               padding: EdgeInsets.all(10),
@@ -145,7 +145,7 @@ class _CategorySelection extends State<CategorySelection> {
                 ),
               ),
             ),
-            SizedBox(height: 45),
+            SizedBox(height: 35),
             Container(
               width: 350,
               padding: EdgeInsets.all(10),
@@ -176,7 +176,7 @@ class _CategorySelection extends State<CategorySelection> {
                 ),
               ),
             ),
-            SizedBox(height: 45),
+            SizedBox(height: 35),
             Container(
               width: 350,
               height: 100,

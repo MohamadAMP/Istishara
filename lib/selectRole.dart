@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:istishara/categorySelection.dart';
 import 'package:istishara/database.dart';
+import 'package:istishara/homePages/baseClientHomepage.dart';
 import 'package:istishara/professionalRole.dart';
 import 'package:istishara/userData.dart';
 
@@ -23,14 +23,15 @@ class _RoleSelection extends State<RoleSelection> {
     var user = new UserData(
         widget.user.displayName, widget.user.email, widget.user.uid, 'Client');
 
-    getAllUid().then((uids) => {
-          print(uids),
-          if (!uids.contains(widget.user.uid)) {user.setId(addUser(user))}
-        });
+    user.setId(addUser(user));
+    // getAllUid().then((uids) => {
+    //       print(uids),
+    //       if (!uids.contains(widget.user.uid)) {user.setId(addUser(user))}
+    //     });
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => CategorySelection(widget.user)));
+            builder: (context) => BaseClientHomepage(widget.user)));
   }
 
   @override

@@ -26,7 +26,8 @@ class QuestionsArchitectureState extends State<QuestionsArchitecture> {
   }
 
   void newPost(String text) {
-    var post = new Post(text, widget.user.displayName, 'Architecture');
+    var post = new Post(
+        text, widget.user.displayName, 'Architecture', widget.user.uid);
     post.setId(savePost(post));
     this.setState(() {
       posts.add(post);
