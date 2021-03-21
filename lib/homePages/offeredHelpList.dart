@@ -6,8 +6,8 @@ import '../post.dart';
 
 // ignore: must_be_immutable
 class OfferPage extends StatefulWidget {
-  final Post post;
-  OfferPage(this.post);
+  final List<dynamic> uidName;
+  OfferPage(this.uidName);
   @override
   OfferPageState createState() => OfferPageState();
 }
@@ -15,11 +15,9 @@ class OfferPage extends StatefulWidget {
 class OfferPageState extends State<OfferPage> {
   List<dynamic> uidName = [];
 
-  void updateUidName() {
-    getUidName(this.widget.post).then((uidName) {
-      setState(() {
-        this.uidName = uidName;
-      });
+  void updateUidName() async {
+    setState(() {
+      this.uidName = uidName;
     });
   }
 
@@ -27,14 +25,13 @@ class OfferPageState extends State<OfferPage> {
   void initState() {
     super.initState();
     updateUidName();
-    print(this.uidName);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(title: Text("Offered Help")),
-      body: DisplayOfferedHelp(this.uidName),
+      body: DisplayOfferedHelp(this.widget.uidName),
     );
   }
 }

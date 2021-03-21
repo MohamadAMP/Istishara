@@ -5,7 +5,9 @@ import 'package:istishara/homePages/questionsECE.dart';
 import 'package:istishara/homePages/questionsID.dart';
 import 'package:istishara/homePages/questionsMech.dart';
 
+import 'auth.dart';
 import 'homePages/questionsArchitecture.dart';
+import 'login.dart';
 
 class CategorySelection extends StatefulWidget {
   final User user;
@@ -47,9 +49,21 @@ class _CategorySelection extends State<CategorySelection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Istishara'),
-        ),
+        appBar: AppBar(title: Text('Home'), actions: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(child: Text('Log out')),
+              IconButton(
+                icon: Icon(Icons.logout),
+                onPressed: () async {
+                  await signOut();
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                },
+              )
+            ],
+          ),
+        ]),
         body: ListView(children: <Widget>[
           Column(children: <Widget>[
             SizedBox(height: 35),

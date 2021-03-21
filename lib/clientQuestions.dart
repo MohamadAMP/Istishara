@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:istishara/auth.dart';
 import 'package:istishara/displayUserQuestions.dart';
 import 'package:istishara/post.dart';
 
 import 'package:istishara/database.dart';
+
+import 'login.dart';
 
 class ClientQuestions extends StatefulWidget {
   final User user;
@@ -43,9 +46,21 @@ class ClientQuestionsState extends State<ClientQuestions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Istishara'),
-        ),
+        appBar: AppBar(title: Text('Questions'), actions: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(child: Text('Log out')),
+              IconButton(
+                icon: Icon(Icons.logout),
+                onPressed: () async {
+                  await signOut();
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                },
+              )
+            ],
+          ),
+        ]),
         body: Column(children: <Widget>[
           Expanded(child: DisplayUserQuestions(this.posts, widget.user)),
         ]));

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:istishara/post.dart';
 
+import 'database.dart';
 import 'homePages/offeredHelpList.dart';
 
 // ignore: must_be_immutable
@@ -18,6 +19,7 @@ class DisplayUserQuestions extends StatefulWidget {
 class _DisplayUserQuestionsState extends State<DisplayUserQuestions> {
   List<Post> userPosts = [];
   List<String> names = [];
+  List<dynamic> uidName = [];
 
   void post(Function callBack) {
     this.setState(() {
@@ -25,10 +27,22 @@ class _DisplayUserQuestionsState extends State<DisplayUserQuestions> {
     });
   }
 
+  void updateUidName(Post post) async {
+    getUidName(post).then((uidName) {
+      setState(() {
+        this.uidName = uidName;
+      });
+    });
+  }
+
   void _offerhelpbuttonpressed(Post post) {
     setState(() {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => OfferPage(post)));
+      updateUidName(post);
+
+      Future.delayed(Duration(seconds: 1), () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => OfferPage(this.uidName)));
+      });
     });
   }
 

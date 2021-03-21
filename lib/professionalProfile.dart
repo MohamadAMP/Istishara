@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'auth.dart';
+import 'login.dart';
+
 class ProfessionalProfile extends StatefulWidget {
   final List<dynamic> userData;
 
@@ -21,9 +24,21 @@ class _ProfessionalProfileState extends State<ProfessionalProfile> {
   Widget build(BuildContext context) {
     this.userData = this.widget.userData.toSet();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile'),
-      ),
+      appBar: AppBar(title: Text('Profile'), actions: <Widget>[
+        Row(
+          children: <Widget>[
+            Container(child: Text('Log out')),
+            IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () async {
+                await signOut();
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginPage()));
+              },
+            )
+          ],
+        ),
+      ]),
       body: Column(children: <Widget>[
         Container(
           color: Colors.orange[400],

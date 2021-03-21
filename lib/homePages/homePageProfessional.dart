@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:istishara/database.dart';
+import '../auth.dart';
+import '../login.dart';
 import '../post.dart';
 import 'postListProfessional.dart';
 
@@ -34,9 +36,21 @@ class _MyHomePageState extends State<MyHomePagePro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Istishara'),
-        ),
+        appBar: AppBar(title: Text('Istishara'), actions: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(child: Text('Log out')),
+              IconButton(
+                icon: Icon(Icons.logout),
+                onPressed: () async {
+                  await signOut();
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                },
+              )
+            ],
+          ),
+        ]),
         body: Column(children: <Widget>[
           Expanded(child: PostList(this.posts, widget.user, widget.type)),
         ]));
