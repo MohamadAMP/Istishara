@@ -1,5 +1,4 @@
 import 'package:istishara/chatPage.dart';
-import 'package:istishara/professionalProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:istishara/homePages/homePageProfessional.dart';

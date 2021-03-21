@@ -1,6 +1,4 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:istishara/professionalProfile.dart';
 import 'package:istishara/professionalProfileHelp.dart';
 
 // ignore: must_be_immutable
