@@ -28,7 +28,7 @@ class _RoleSelection extends State<RoleSelection> {
     //       print(uids),
     //       if (!uids.contains(widget.user.uid)) {user.setId(addUser(user))}
     //     });
-    Navigator.push(
+    Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) => BaseClientHomepage(widget.user)));

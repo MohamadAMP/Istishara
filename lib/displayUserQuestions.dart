@@ -1,23 +1,61 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:istishara/post.dart';
 
+import 'homePages/offeredHelpList.dart';
+
 // ignore: must_be_immutable
 class DisplayUserQuestions extends StatefulWidget {
-  String type;
   final User user;
   final List<Post> listItems;
 
-  DisplayUserQuestions(this.listItems, this.user, this.type);
+  DisplayUserQuestions(this.listItems, this.user);
 
   @override
   _DisplayUserQuestionsState createState() => _DisplayUserQuestionsState();
 }
 
 class _DisplayUserQuestionsState extends State<DisplayUserQuestions> {
+  List<Post> userPosts = [];
+  List<String> names = [];
+  final dbRef = FirebaseDatabase.instance.reference();
+  DataSnapshot snapshot;
+  List uidName = [];
+  Map<dynamic, dynamic> values;
+  String key;
+
   void post(Function callBack) {
     this.setState(() {
       callBack();
+    });
+  }
+
+  void updateNames(Post post) async {
+    List<dynamic> uidName = [];
+    post.usersAnswered.forEach((uid) async => {
+          snapshot = await dbRef
+              .child('users/')
+              .orderByChild('uid')
+              .equalTo(uid)
+              .once(),
+          if (snapshot.value != null)
+            {
+              values = snapshot.value,
+              key = values.keys.first,
+              uidName.add([values[key]['uid'], values[key]['name']]),
+            }
+        });
+    setState(() {
+      this.uidName = uidName;
+    });
+  }
+
+  void _offerhelpbuttonpressed(Post post) {
+    setState(() {
+      updateNames(post);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => OfferPage(this.uidName)));
     });
   }
 
@@ -40,17 +78,23 @@ class _DisplayUserQuestionsState extends State<DisplayUserQuestions> {
                   title: Text(post.body),
                   subtitle: Text(post.author),
                 )),
-                Row(
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        "Offered help: " + post.usersAnswered.length.toString(),
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                    ),
-                  ],
-                )
+                Row(children: <Widget>[
+                  Padding(
+                      padding: EdgeInsets.all(20),
+                      child: TextButton(
+                        child: Text(
+                            "Offers: " + post.usersAnswered.length.toString()),
+                        onPressed: () => {_offerhelpbuttonpressed(post)},
+                        style: TextButton.styleFrom(
+                          primary: Colors.white,
+                          backgroundColor: Colors.orange,
+                          padding: EdgeInsets.all(5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                          ),
+                        ),
+                      )),
+                ]),
               ],
             ),
           );

@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:istishara/auth.dart';
+import 'package:istishara/homePages/baseProfessionalHomepage.dart';
 import 'package:istishara/selectRole.dart';
 
-import 'database.dart';
+import 'homePages/baseClientHomepage.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -24,49 +26,52 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   User user;
-  Set users;
-
-  void updateUsers() {
-    getAllUsers().then((users) => {
-          this.setState(() {
-            this.users = users;
-          })
-        });
-  }
-
+  final dbRef = FirebaseDatabase.instance.reference();
+  DataSnapshot snapshot;
+  List uidRole = [];
+  Map<dynamic, dynamic> values;
+  String key;
   @override
   void initState() {
     super.initState();
     signOut();
-    updateUsers();
   }
 
-  // bool contains(User user) {
-  //   print(
-  //       users.where((item) => item.uid == user.uid && item.role == 'Client') !=
-  //           null);
-  //   return users
-  //           .where((item) => item.uid == user.uid && item.role == 'Client') !=
-  //       null;
-  // }
-
   void click() {
-    signInWithGoogle().then((user) => {
+    signInWithGoogle().then((user) async => {
           this.user = user,
-          // if (contains(user))
-          //   {
-          //     Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //             builder: (context) => CategorySelection(user)))
-          //   },
-          // if (!contains(user))
-          //   {
-          //     Navigator.push(context,
-          //         MaterialPageRoute(builder: (context) => RoleSelection(user)))
-          //   }
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => RoleSelection(user)))
+          snapshot = await dbRef
+              .child('users/')
+              .orderByChild('uid')
+              .equalTo(user.uid)
+              .once(),
+          if (snapshot.value == null)
+            {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => RoleSelection(user)))
+            },
+          if (snapshot.value != null)
+            {
+              values = snapshot.value,
+              key = values.keys.first,
+              uidRole.add(values[key]['uid']),
+              uidRole.add(values[key]['role'])
+            },
+          if (uidRole[0] == user.uid && uidRole[1] == 'Client')
+            {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BaseClientHomepage(user)))
+            },
+          if (uidRole[0] == user.uid && uidRole[1] != 'Client')
+            {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          BaseProfessionalHomepage(user, uidRole[1])))
+            },
         });
   }
 

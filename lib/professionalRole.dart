@@ -30,7 +30,7 @@ class _FormScreenState extends State<FormScreen> {
     //       print(uids),
     //       if (!uids.contains(widget.user.uid)) {user.setId(addUser(user))}
     //     });
-    Navigator.push(
+    Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) =>

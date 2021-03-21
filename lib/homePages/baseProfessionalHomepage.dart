@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:istishara/homePages/homePageProfessional.dart';
 
+import '../professionalProfileHelp.dart';
+
 // ignore: must_be_immutable
 class BaseProfessionalHomepage extends StatefulWidget {
   String type;
@@ -38,7 +40,7 @@ class _BaseProfHomepageState extends State<BaseProfessionalHomepage> {
         children: <Widget>[
           MyHomePagePro(widget.user, widget.type),
           Chat(),
-          ProfessionalProfile()
+          ProfessionalProfileHelp(widget.user.uid)
         ],
         onPageChanged: _onPageChanged,
         physics: NeverScrollableScrollPhysics(),

@@ -38,16 +38,16 @@ Future<List<Post>> getAllPosts() async {
 Future<Set> getAllUid() async {
   DataSnapshot dataSnapshot = await databaseReference.child('users/').once();
 
-  Set uid = {};
+  Set uids = {};
 
   if (dataSnapshot.value != null) {
     dataSnapshot.value.forEach((uid, value) {
-      var uid = value;
-      uid.add(uid);
+      String uid = value;
+      uids.add(uid);
     });
   }
 
-  return uid;
+  return uids;
 }
 
 Future<Set> getAllUsers() async {
@@ -64,4 +64,43 @@ Future<Set> getAllUsers() async {
   }
 
   return users;
+}
+
+Future<String> getNameByUid(String uid) async {
+  final dbRef = FirebaseDatabase.instance.reference();
+  DataSnapshot snapshot;
+  Map<dynamic, dynamic> values;
+  String key;
+  String name;
+
+  snapshot =
+      await dbRef.child('users/').orderByChild('uid').equalTo(uid).once();
+  if (snapshot.value != null) {
+    values = snapshot.value;
+    key = values.keys.first;
+    name = values[key]['name'];
+    print(values[key]['name']);
+  }
+
+  return name;
+}
+
+Future<List<dynamic>> getUserDataByUid(String uid) async {
+  List<dynamic> userData = [];
+  final dbRef = FirebaseDatabase.instance.reference();
+  DataSnapshot snapshot;
+  Map<dynamic, dynamic> values;
+  String key;
+
+  snapshot =
+      await dbRef.child('users/').orderByChild('uid').equalTo(uid).once();
+  if (snapshot.value != null) {
+    values = snapshot.value;
+    key = values.keys.first;
+    userData.add(values[key]['name']);
+    userData.add(values[key]['role']);
+    userData.add(values[key]['uid']);
+    print(userData);
+  }
+  return userData;
 }

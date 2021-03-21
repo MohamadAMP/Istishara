@@ -47,9 +47,7 @@ class ClientQuestionsState extends State<ClientQuestions> {
           title: Text('Istishara'),
         ),
         body: Column(children: <Widget>[
-          Expanded(
-              child: DisplayUserQuestions(
-                  this.posts, widget.user, 'Architecture')),
+          Expanded(child: DisplayUserQuestions(this.posts, widget.user)),
         ]));
   }
 }

@@ -37,7 +37,7 @@ class _BaseClientHomepageState extends State<BaseClientHomepage> {
         children: <Widget>[
           CategorySelection(widget.user),
           Chat(),
-          ClientQuestions(widget.user),
+          ClientQuestions(widget.user)
         ],
         onPageChanged: _onPageChanged,
         physics: NeverScrollableScrollPhysics(),
