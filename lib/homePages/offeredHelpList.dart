@@ -1,46 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:istishara/database.dart';
 import 'package:istishara/displayOfferedHelp.dart';
+
+import '../post.dart';
 
 // ignore: must_be_immutable
 class OfferPage extends StatefulWidget {
-  List<dynamic> uidNames;
-  OfferPage(this.uidNames);
+  final Post post;
+  OfferPage(this.post);
   @override
   OfferPageState createState() => OfferPageState();
 }
 
 class OfferPageState extends State<OfferPage> {
   List<dynamic> uidName = [];
-  // final dbRef = FirebaseDatabase.instance.reference();
-  // DataSnapshot snapshot;
-  // List uidName = [];
-  // Map<dynamic, dynamic> values;
-  // String key;
 
-  // void updateNames() async {
-  //   widget.post.usersAnswered.forEach((uid) async => {
-  //         snapshot = await dbRef
-  //             .child('users/')
-  //             .orderByChild('uid')
-  //             .equalTo(uid)
-  //             .once(),
-  //         if (snapshot.value != null)
-  //           {
-  //             values = snapshot.value,
-  //             key = values.keys.first,
-  //             uidName.add([values[key]['uid'], values[key]['name']]),
-  //           }
-  //       });
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   updateNames();
-  // }
   void updateUidName() {
-    setState(() {
-      this.uidName = this.widget.uidNames;
+    getUidName(this.widget.post).then((uidName) {
+      setState(() {
+        this.uidName = uidName;
+      });
     });
   }
 
@@ -48,6 +27,7 @@ class OfferPageState extends State<OfferPage> {
   void initState() {
     super.initState();
     updateUidName();
+    print(this.uidName);
   }
 
   @override

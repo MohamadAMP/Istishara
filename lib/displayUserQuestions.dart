@@ -19,11 +19,6 @@ class DisplayUserQuestions extends StatefulWidget {
 class _DisplayUserQuestionsState extends State<DisplayUserQuestions> {
   List<Post> userPosts = [];
   List<String> names = [];
-  final dbRef = FirebaseDatabase.instance.reference();
-  DataSnapshot snapshot;
-  List uidName = [];
-  Map<dynamic, dynamic> values;
-  String key;
 
   void post(Function callBack) {
     this.setState(() {
@@ -31,31 +26,10 @@ class _DisplayUserQuestionsState extends State<DisplayUserQuestions> {
     });
   }
 
-  void updateNames(Post post) async {
-    List<dynamic> uidName = [];
-    post.usersAnswered.forEach((uid) async => {
-          snapshot = await dbRef
-              .child('users/')
-              .orderByChild('uid')
-              .equalTo(uid)
-              .once(),
-          if (snapshot.value != null)
-            {
-              values = snapshot.value,
-              key = values.keys.first,
-              uidName.add([values[key]['uid'], values[key]['name']]),
-            }
-        });
-    setState(() {
-      this.uidName = uidName;
-    });
-  }
-
   void _offerhelpbuttonpressed(Post post) {
     setState(() {
-      updateNames(post);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => OfferPage(this.uidName)));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => OfferPage(post)));
     });
   }
 

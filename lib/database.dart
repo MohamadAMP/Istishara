@@ -104,3 +104,22 @@ Future<List<dynamic>> getUserDataByUid(String uid) async {
   }
   return userData;
 }
+
+Future<List<dynamic>> getUidName(Post post) async {
+  List<dynamic> uidName = [];
+  final dbRef = FirebaseDatabase.instance.reference();
+  DataSnapshot snapshot;
+  Map<dynamic, dynamic> values;
+  String key;
+  post.usersAnswered.toList().forEach((uid) async => {
+        snapshot =
+            await dbRef.child('users/').orderByChild('uid').equalTo(uid).once(),
+        if (snapshot.value != null)
+          {
+            values = snapshot.value,
+            key = values.keys.first,
+            uidName.add([values[key]['uid'], values[key]['name']]),
+          }
+      });
+  return uidName;
+}

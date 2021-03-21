@@ -14,41 +14,20 @@ class DisplayOfferedHelp extends StatefulWidget {
 }
 
 class _DisplayOfferedHelpState extends State<DisplayOfferedHelp> {
-  List<String> names = [];
-  final dbRef = FirebaseDatabase.instance.reference();
-  DataSnapshot snapshot;
-  // List uidName = [];
-  Map<dynamic, dynamic> values;
-  String key;
-
-  // Future<List> updateNames() async {
-  //   List<dynamic> uidName = [];
-  //   widget.uids.forEach((uid) async => {
-  //         snapshot = await dbRef
-  //             .child('users/')
-  //             .orderByChild('uid')
-  //             .equalTo(uid)
-  //             .once(),
-  //         if (snapshot.value != null)
-  //           {
-  //             values = snapshot.value,
-  //             key = values.keys.first,
-  //             uidName.add([values[key]['uid'], values[key]['name']]),
-  //           }
-  //       });
-  //   return uidName;
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   updateNames();
-  // }
+  List<dynamic> uidName = [];
 
   void post(Function callBack) {
     this.setState(() {
       callBack();
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.uidName = widget.uidName;
+    print(this.uidName);
+    print(widget.uidName);
   }
 
   void click(uid) {

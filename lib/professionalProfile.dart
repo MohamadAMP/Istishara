@@ -1,32 +1,25 @@
 import 'package:flutter/material.dart';
 
 class ProfessionalProfile extends StatefulWidget {
-  final String name;
-  final String type;
+  final List<dynamic> userData;
 
-  ProfessionalProfile(this.name, this.type);
+  ProfessionalProfile(this.userData);
   @override
   _ProfessionalProfileState createState() => _ProfessionalProfileState();
 }
 
 class _ProfessionalProfileState extends State<ProfessionalProfile> {
-  var name;
-
-  void updateName() {
-    setState(() {
-      this.name = name;
-    });
-  }
-
+  Set<dynamic> userData;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    updateName();
+    this.userData = widget.userData.toSet();
   }
 
   @override
   Widget build(BuildContext context) {
+    this.userData = this.widget.userData.toSet();
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile'),
@@ -57,11 +50,15 @@ class _ProfessionalProfileState extends State<ProfessionalProfile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          this.widget.name +
+                          (this.userData.length > 0
+                                  ? this.userData.elementAt(0)
+                                  : '') +
                               '\n' +
-                              this
-                                  .widget
-                                  .type, //you might have to add another text widget depending on how you retrieve it
+                              (this.userData.length > 0
+                                  ? this.userData.elementAt(1)
+                                  : ''),
+
+                          //you might have to add another text widget depending on how you retrieve it
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: Colors.white,

@@ -13,7 +13,8 @@ class ProfessionalProfileHelp extends StatefulWidget {
 
 class ProfessionalProfileHelpState extends State<ProfessionalProfileHelp> {
   List<dynamic> userData = [];
-
+  String name;
+  String type;
   void updateUserData() {
     getUserDataByUid(this.widget.uid).then((userData) {
       setState(() {
@@ -32,7 +33,7 @@ class ProfessionalProfileHelpState extends State<ProfessionalProfileHelp> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(children: <Widget>[
-      Expanded(child: ProfessionalProfile(this.userData[0], this.userData[1])),
+      Expanded(child: ProfessionalProfile(this.userData)),
     ]));
   }
 }
