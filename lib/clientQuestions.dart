@@ -53,7 +53,7 @@ class ClientQuestionsState extends State<ClientQuestions> {
               IconButton(
                 icon: Icon(Icons.logout),
                 onPressed: () async {
-                  signOut();
+                  await signOut();
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => LoginPage()));
                 },

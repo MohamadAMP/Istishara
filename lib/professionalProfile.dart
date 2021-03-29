@@ -31,7 +31,7 @@ class _ProfessionalProfileState extends State<ProfessionalProfile> {
             IconButton(
               icon: Icon(Icons.logout),
               onPressed: () async {
-                signOut();
+                await signOut();
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => LoginPage()));
               },
