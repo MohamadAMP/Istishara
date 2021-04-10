@@ -36,7 +36,7 @@ class _BaseClientHomepageState extends State<BaseClientHomepage> {
         controller: _pageController,
         children: <Widget>[
           CategorySelection(widget.user),
-          Chat(),
+          Chat(widget.user),
           ClientQuestions(widget.user)
         ],
         onPageChanged: _onPageChanged,

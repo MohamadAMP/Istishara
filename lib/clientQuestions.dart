@@ -27,16 +27,6 @@ class ClientQuestionsState extends State<ClientQuestions> {
         });
   }
 
-  void newPost(String text) {
-    var post = new Post(
-        text, widget.user.displayName, 'Architecture', widget.user.uid);
-    post.setId(savePost(post));
-    this.setState(() {
-      posts.add(post);
-      updatePosts();
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -53,7 +43,7 @@ class ClientQuestionsState extends State<ClientQuestions> {
               IconButton(
                 icon: Icon(Icons.logout),
                 onPressed: () async {
-                  await signOut();
+                  signOut();
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => LoginPage()));
                 },

@@ -100,7 +100,6 @@ Future<List<dynamic>> getUserDataByUid(String uid) async {
     userData.add(values[key]['name']);
     userData.add(values[key]['role']);
     userData.add(values[key]['uid']);
-    print(userData);
   }
   return userData;
 }
@@ -122,4 +121,43 @@ Future<List<dynamic>> getUidName(Post post) async {
           }
       });
   return uidName;
+}
+
+Future<List<dynamic>> getUsersAnswered(String uid) async {
+  List<dynamic> usersAnswered = [];
+  List<Post> posts = await getAllPosts();
+  List<dynamic> temp = [];
+  posts.forEach((post) => {
+        if (post.uid == uid)
+          {
+            print(post.author),
+            post.usersAnswered.forEach((uid) => {
+                  temp.add(uid),
+                  temp.add(post.body),
+                  print(temp),
+                  usersAnswered.add(temp),
+                  temp = [],
+                })
+          }
+      });
+  print(usersAnswered);
+  return usersAnswered;
+}
+
+Future<List<dynamic>> getUsersAnsweredPro(String uid) async {
+  List<dynamic> usersAnswered = [];
+  List<Post> posts = await getAllPosts();
+  List<dynamic> temp = [];
+
+  posts.forEach((post) => {
+        if (post.usersAnswered.contains(uid))
+          {
+            temp.add(post.uid),
+            temp.add(post.body),
+            usersAnswered.add(temp),
+            temp = [],
+          }
+      });
+
+  return usersAnswered;
 }

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:istishara/database.dart';
 import 'package:istishara/displayOfferedHelp.dart';
-
-import '../post.dart';
 
 // ignore: must_be_immutable
 class OfferPage extends StatefulWidget {

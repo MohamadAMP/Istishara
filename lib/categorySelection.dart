@@ -56,7 +56,7 @@ class _CategorySelection extends State<CategorySelection> {
               IconButton(
                 icon: Icon(Icons.logout),
                 onPressed: () async {
-                  await signOut();
+                  signOut();
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => LoginPage()));
                 },
