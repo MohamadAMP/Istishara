@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import 'package:istishara/chatBubble.dart';
 
 import 'message.dart';
@@ -25,9 +26,10 @@ class _DisplayMessagesState extends State<DisplayMessages> {
       itemCount: this.widget.messages.length,
       itemBuilder: (context, index) {
         var text = widget.messages[index]['content'];
-        var time = widget.messages[index]['createdAt'].toDate().toString();
+        var time = widget.messages[index]['createdAt'].toDate();
+        var dateFormatted = DateFormat.yMd().add_jm().format(time).toString();
         var uid = widget.messages[index]['uid'];
-        Message msg = new Message(text: text, time: time);
+        Message msg = new Message(text: text, time: dateFormatted);
         if (uid == user.uid) {
           return Align(
             alignment: Alignment.centerRight,
