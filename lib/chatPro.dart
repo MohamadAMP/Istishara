@@ -6,16 +6,16 @@ import 'package:istishara/displayChatMessages.dart';
 import 'messageForm.dart';
 
 // ignore: must_be_immutable
-class ChatDisplayPage extends StatefulWidget {
+class ChatDisplayPagePro extends StatefulWidget {
   String name;
   String docID;
   String uid;
-  ChatDisplayPage(this.name, this.docID, this.uid);
+  ChatDisplayPagePro(this.name, this.docID, this.uid);
   @override
-  _ChatDisplayPageState createState() => _ChatDisplayPageState();
+  _ChatDisplayPageProState createState() => _ChatDisplayPageProState();
 }
 
-class _ChatDisplayPageState extends State<ChatDisplayPage> {
+class _ChatDisplayPageProState extends State<ChatDisplayPagePro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

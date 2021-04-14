@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:istishara/chat.dart';
 
 import 'chatFirestore.dart';
+import 'chatPro.dart';
 import 'database.dart';
 
 // ignore: must_be_immutable
@@ -54,7 +54,7 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  ChatDisplayPage(name, uidComb, widget.uid)));
+                  ChatDisplayPagePro(name, uidComb, widget.uid)));
     } else {
       addChat(uidComb);
       print('else statement');
@@ -62,7 +62,7 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  ChatDisplayPage(name, uidComb, widget.uid)));
+                  ChatDisplayPagePro(name, uidComb, widget.uid)));
     }
   }
 

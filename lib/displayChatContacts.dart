@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:istishara/chat.dart';
 import 'package:istishara/chatFirestore.dart';
+
+import 'chatClient.dart';
 
 // ignore: must_be_immutable
 class DisplayChatContacts extends StatefulWidget {
