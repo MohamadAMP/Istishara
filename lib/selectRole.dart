@@ -82,6 +82,7 @@ class _RoleSelection extends State<RoleSelection> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+                // ignore: deprecated_member_use
                 RaisedButton(
                   padding: EdgeInsets.all(15),
                   onPressed: this.newClient,
@@ -92,6 +93,7 @@ class _RoleSelection extends State<RoleSelection> {
                 SizedBox(
                   width: 20,
                 ),
+                // ignore: deprecated_member_use
                 RaisedButton(
                   padding: EdgeInsets.all(15),
                   onPressed: this.newProfesional,

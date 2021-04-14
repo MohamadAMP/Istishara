@@ -81,6 +81,7 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
 
   @override
   void dispose() {
+    // ignore: todo
     // TODO: implement dispose
     super.dispose();
     controller.dispose();

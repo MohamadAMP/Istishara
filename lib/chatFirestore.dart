@@ -6,6 +6,7 @@ Future<void> addChat(String chatID) {
   return chats.doc(chatID).set({'createdAt': DateTime.now(), 'messages': []});
 }
 
+// ignore: missing_return
 Future<void> sendMessage(String chatID, String content, String uid) {
   var data = {
     'content': content,

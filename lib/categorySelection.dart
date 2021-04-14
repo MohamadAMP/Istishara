@@ -70,6 +70,7 @@ class _CategorySelection extends State<CategorySelection> {
             Container(
               width: 350,
               padding: EdgeInsets.all(10),
+              // ignore: deprecated_member_use
               child: OutlineButton(
                 onPressed: () => this.architecture('Architecture'),
                 shape: RoundedRectangleBorder(
@@ -101,6 +102,7 @@ class _CategorySelection extends State<CategorySelection> {
             Container(
               width: 350,
               padding: EdgeInsets.all(10),
+              // ignore: deprecated_member_use
               child: OutlineButton(
                 onPressed: () => this.interiorDesign('Interior Design'),
                 shape: RoundedRectangleBorder(
@@ -132,6 +134,7 @@ class _CategorySelection extends State<CategorySelection> {
             Container(
               width: 350,
               padding: EdgeInsets.all(10),
+              // ignore: deprecated_member_use
               child: OutlineButton(
                 onPressed: () => this.civil('Civil Engineering'),
                 shape: RoundedRectangleBorder(
@@ -163,6 +166,7 @@ class _CategorySelection extends State<CategorySelection> {
             Container(
               width: 350,
               padding: EdgeInsets.all(10),
+              // ignore: deprecated_member_use
               child: OutlineButton(
                 onPressed: () => this.mechanical('Mechanical Engineering'),
                 shape: RoundedRectangleBorder(
@@ -195,6 +199,7 @@ class _CategorySelection extends State<CategorySelection> {
               width: 350,
               height: 100,
               padding: EdgeInsets.all(10),
+              // ignore: deprecated_member_use
               child: OutlineButton(
                 onPressed: () =>
                     this.ece('Electrical & Communications Engineering'),

@@ -76,6 +76,7 @@ class _BodyState extends State<Body> {
   }
 
   Widget loginButton() {
+    // ignore: deprecated_member_use
     return OutlineButton(
       onPressed: this.click,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),

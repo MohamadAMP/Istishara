@@ -125,6 +125,7 @@ class _FormScreenState extends State<FormScreen> {
                   _buildphonefield(),
                   _buildURLfield(),
                   SizedBox(height: 35),
+                  // ignore: deprecated_member_use
                   RaisedButton(
                     child: Text("Submit"),
                     color: Colors.orange,

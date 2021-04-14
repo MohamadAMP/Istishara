@@ -15,6 +15,7 @@ class _ProfessionalProfileState extends State<ProfessionalProfile> {
   Set<dynamic> userData;
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
     this.userData = widget.userData.toSet();
@@ -121,6 +122,7 @@ class _ProfessionalProfileState extends State<ProfessionalProfile> {
                         )
                       ],
                     ),
+                    // ignore: deprecated_member_use
                     OutlineButton.icon(
                       onPressed: () {},
                       icon: Icon(Icons.edit, size: 18),

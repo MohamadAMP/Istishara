@@ -73,6 +73,7 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
 
   @override
   void dispose() {
+    // ignore: todo
     // TODO: implement dispose
     super.dispose();
     controller.dispose();
