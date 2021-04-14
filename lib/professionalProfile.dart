@@ -96,13 +96,25 @@ class _ProfessionalProfileState extends State<ProfessionalProfile> {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(11.0),
-                          child: Text(
-                            "Rating",
-                            style: TextStyle(
-                                //add rating in the future
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                          child: Column(
+                            children: [
+                              Text(
+                                "Rating",
+                                style: TextStyle(
+                                  //add rating in the future
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "4.5",
+                                style: TextStyle(
+                                  //add rating in the future
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
                         )
                       ],
@@ -111,13 +123,25 @@ class _ProfessionalProfileState extends State<ProfessionalProfile> {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(11.0),
-                          child: Text(
-                            "Jobs Done",
-                            style: TextStyle(
-                                //add the number of questions answered in the future
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                          child: Column(
+                            children: [
+                              Text(
+                                "Jobs Done",
+                                style: TextStyle(
+                                  //add the number of questions answered in the future
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "7",
+                                style: TextStyle(
+                                  //add the number of questions answered in the future
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
                           ),
                         )
                       ],

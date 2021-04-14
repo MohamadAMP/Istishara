@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:istishara/database.dart';
 import 'package:istishara/professionalProfile.dart';
+import 'package:istishara/professionalProfileClient.dart';
 
 class ProfessionalProfileHelp extends StatefulWidget {
   final String uid;
@@ -32,7 +33,7 @@ class ProfessionalProfileHelpState extends State<ProfessionalProfileHelp> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(children: <Widget>[
-      Expanded(child: ProfessionalProfile(this.userData)),
+      Expanded(child: ProfessionalProfileClient(this.userData)),
     ]));
   }
 }

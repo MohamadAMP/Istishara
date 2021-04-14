@@ -49,30 +49,30 @@ class _BaseProfHomepageState extends State<BaseProfessionalHomepage> {
         items: [
           BottomNavigationBarItem(
               icon: Icon(Icons.home_rounded,
-                  color: _selectedIndex == 0 ? Colors.grey : Colors.grey[600]),
+                  color: _selectedIndex == 0 ? Colors.orange : Colors.grey[600]),
               // ignore: deprecated_member_use
               title: Text('Home',
                   style: TextStyle(
                       color: _selectedIndex == 0
-                          ? Colors.grey
+                          ? Colors.orange
                           : Colors.grey[600]))),
           BottomNavigationBarItem(
             icon: Icon(Icons.question_answer_rounded,
-                color: _selectedIndex == 1 ? Colors.grey : Colors.grey[600]),
+                color: _selectedIndex == 1 ? Colors.orange : Colors.grey[600]),
             // ignore: deprecated_member_use
             title: Text('Messaging',
                 style: TextStyle(
                     color:
-                        _selectedIndex == 1 ? Colors.grey : Colors.grey[600])),
+                        _selectedIndex == 1 ? Colors.orange : Colors.grey[600])),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person,
-                color: _selectedIndex == 2 ? Colors.grey : Colors.grey[600]),
+                color: _selectedIndex == 2 ? Colors.orange : Colors.grey[600]),
             // ignore: deprecated_member_use
             title: Text('Profile',
                 style: TextStyle(
                     color:
-                        _selectedIndex == 2 ? Colors.grey : Colors.grey[600])),
+                        _selectedIndex == 2 ? Colors.orange : Colors.grey[600])),
           ),
           //BottomNavigationBarItem(icon:Icon(Icons.power_settings_new_rounded),label:'Log Out',backgroundColor: Colors.orange),
         ],

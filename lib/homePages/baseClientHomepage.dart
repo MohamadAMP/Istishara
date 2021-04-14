@@ -47,28 +47,28 @@ class _BaseClientHomepageState extends State<BaseClientHomepage> {
         items: [
           BottomNavigationBarItem(
               icon: Icon(Icons.home_rounded,
-                  color: _selectedIndex == 0 ? Colors.grey : null),
+                  color: _selectedIndex == 0 ? Colors.orange : Colors.grey[600]),
               // ignore: deprecated_member_use
               title: Text('Home',
                   style: TextStyle(
-                      color: _selectedIndex == 0 ? Colors.grey : null)),
+                      color: _selectedIndex == 0 ? Colors.orange : Colors.grey[600])),
               backgroundColor: Colors.orange),
           BottomNavigationBarItem(
               icon: Icon(Icons.question_answer_rounded,
-                  color: _selectedIndex == 1 ? Colors.grey : null),
+                  color: _selectedIndex == 1 ? Colors.orange : Colors.grey[600]),
               // ignore: deprecated_member_use
               title: Text('Messaging',
                   style: TextStyle(
-                      color: _selectedIndex == 1 ? Colors.grey : null)),
+                      color: _selectedIndex == 1 ? Colors.orange : Colors.grey[600])),
               backgroundColor: Colors.orange),
           BottomNavigationBarItem(
               icon: Icon(Icons.help_outline_rounded,
-                  color: _selectedIndex == 2 ? Colors.grey : null),
+                  color: _selectedIndex == 2 ? Colors.orange : Colors.grey[600]),
               // ignore: deprecated_member_use
               title: Text(
                 'Questions',
                 style:
-                    TextStyle(color: _selectedIndex == 2 ? Colors.grey : null),
+                    TextStyle(color: _selectedIndex == 2 ? Colors.orange : Colors.grey[600]),
               ),
               backgroundColor: Colors.orange),
           //BottomNavigationBarItem(icon:Icon(Icons.power_settings_new_rounded),label:'Log Out',backgroundColor: Colors.orange),
