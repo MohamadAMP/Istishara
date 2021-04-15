@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:istishara/chatFirestore.dart';
+import 'package:istishara/firestore.dart';
 
 import 'chatClient.dart';
 
@@ -26,7 +26,7 @@ class _DisplayChatContactsState extends State<DisplayChatContacts> {
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  ChatDisplayPage(name, uidComb, widget.uid)));
+                  ChatDisplayPage(name, uidComb, widget.uid, uidReceived)));
     } else {
       addChat(uidComb);
       print('else statement');
@@ -34,7 +34,7 @@ class _DisplayChatContactsState extends State<DisplayChatContacts> {
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  ChatDisplayPage(name, uidComb, widget.uid)));
+                  ChatDisplayPage(name, uidComb, widget.uid, uidReceived)));
     }
   }
 

@@ -25,42 +25,44 @@ class _PostListState extends State<PostList> {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: this.widget.listItems.length,
-      // ignore: missing_return
       itemBuilder: (context, index) {
         var post = this.widget.listItems[index];
         if (post.type == widget.type) {
-          return Card(
-            shape: new RoundedRectangleBorder(
-                side: new BorderSide(color: Colors.grey[400], width: 2.0),
-                borderRadius: BorderRadius.circular(4.0)),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                    child: ListTile(
-                  title: Text(post.body),
-                  subtitle: Text(post.author),
-                )),
-                Row(
+          return Padding(
+              padding: EdgeInsets.fromLTRB(0, 2, 0, 0),
+              child: Card(
+                shape: new RoundedRectangleBorder(
+                    side: new BorderSide(color: Colors.grey[400], width: 2.0),
+                    borderRadius: BorderRadius.circular(4.0)),
+                child: Row(
                   children: <Widget>[
-                    Container(
-                      child: Text(
-                        "Offered help: " + post.usersAnswered.length.toString(),
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                    ),
-                    IconButton(
-                        icon: Icon(Icons.inbox),
-                        onPressed: () =>
-                            this.post(() => post.answerPost(widget.user)),
-                        color: post.usersAnswered.contains(widget.user.uid)
-                            ? Colors.green
-                            : Colors.black)
+                    Expanded(
+                        child: ListTile(
+                      title: Text(post.body),
+                      subtitle: Text(post.author),
+                    )),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          child: Text(
+                            "Offered help: " +
+                                post.usersAnswered.length.toString(),
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                        ),
+                        IconButton(
+                            icon: Icon(Icons.inbox),
+                            onPressed: () =>
+                                this.post(() => post.answerPost(widget.user)),
+                            color: post.usersAnswered.contains(widget.user.uid)
+                                ? Colors.green
+                                : Colors.black)
+                      ],
+                    )
                   ],
-                )
-              ],
-            ),
-          );
+                ),
+              ));
         } else {
           return SizedBox(
             height: 0,

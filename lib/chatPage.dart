@@ -65,7 +65,8 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
     )..addListener(() {
         setState(() {});
       });
-    controller.repeat(reverse: true);
+    controller.repeat(max: 1);
+    controller.forward();
     super.initState();
     updateUsers();
     getUserInfo();

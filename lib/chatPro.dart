@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:istishara/chatFirestore.dart';
+import 'package:istishara/firestore.dart';
 import 'package:istishara/displayChatMessages.dart';
 
 import 'messageForm.dart';

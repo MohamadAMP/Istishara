@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import 'chatFirestore.dart';
+import 'firestore.dart';
 import 'chatPro.dart';
 import 'database.dart';
 
@@ -74,7 +74,8 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
     )..addListener(() {
         setState(() {});
       });
-    controller.repeat(reverse: true);
+    controller.repeat(max: 1);
+    controller.forward();
     super.initState();
     getProUsersAnswered();
   }
