@@ -30,6 +30,8 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
     await getUsersAnsweredPro(widget.uid).then((uidPosts) {
       uidPosts.forEach((uidPost) async => {
             name = await getNameByUid(uidPost[0]),
+            print(uidPost[0]),
+            print(name),
             post = uidPost[1],
             temp.add(name),
             temp.add(post),
@@ -48,7 +50,7 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
     String uidComb = widget.uid + uidReceived;
     CollectionReference chat = FirebaseFirestore.instance.collection('chats');
     var snapshot = await chat.doc(uidComb).get();
-    print(snapshot.data());
+
     if (snapshot.data() != null) {
       Navigator.push(
           context,
@@ -74,18 +76,9 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
     )..addListener(() {
         setState(() {});
       });
-    controller.repeat(max: 1);
-    controller.forward();
+    controller.repeat(reverse: true);
     super.initState();
     getProUsersAnswered();
-  }
-
-  @override
-  void dispose() {
-    // ignore: todo
-    // TODO: implement dispose
-    super.dispose();
-    controller.dispose();
   }
 
   @override
@@ -100,7 +93,7 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
           itemCount: this.usersNamesPost.length,
           // ignore: missing_return
           itemBuilder: (context, index) {
-            var name = (this.usersNamesPost[index][0]);
+            var name1 = (this.usersNamesPost[index][0]);
             var post = (this.usersNamesPost[index][1]);
             var uidOther = this.usersAnswered[index];
             return Card(
@@ -111,7 +104,7 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
                 children: <Widget>[
                   Expanded(
                       child: ListTile(
-                    title: Text(name),
+                    title: Text(name1),
                     subtitle: Text("Question: " + post),
                   )),
                   Row(children: <Widget>[
@@ -119,7 +112,7 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
                         padding: EdgeInsets.all(20),
                         child: TextButton(
                           child: Text("Chat"),
-                          onPressed: () => {this.click(uidOther, name)},
+                          onPressed: () => {this.click(uidOther, name1)},
                           style: TextButton.styleFrom(
                             primary: Colors.white,
                             backgroundColor: Colors.orange,

@@ -62,6 +62,9 @@ Future<List<dynamic>> getUserRatingByUid(String uid) async {
   int stars = 0;
   int jobsDone = 0;
   var doc = await ratings.doc(uid).get();
+  if (!doc.exists) {
+    return [0.00, 0];
+  }
   var data = doc.data().values.toList().elementAt(0);
   data.forEach((rating) async {
     stars += rating['stars'];
@@ -78,7 +81,9 @@ Future<List<dynamic>> getUserRatingByUid(String uid) async {
 Future<List<dynamic>> getUserReviewsbyUid(String uid) async {
   var reviews = [];
   var doc = await ratings.doc(uid).get();
-  print(doc.data());
+  if (!doc.exists) {
+    return [];
+  }
   var data = doc.data().values.toList().elementAt(0);
   data.forEach((rating) async {
     if (rating['comment'] == "") {

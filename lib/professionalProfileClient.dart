@@ -332,9 +332,7 @@ class _ProfessionalProfileClientState extends State<ProfessionalProfileClient> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  this.widget.rating.isNaN
-                                      ? '0.00'
-                                      : this.widget.rating.toStringAsFixed(2),
+                                  '0.00',
                                   style: TextStyle(
                                       //add rating in the future
                                       color: Colors.white,
