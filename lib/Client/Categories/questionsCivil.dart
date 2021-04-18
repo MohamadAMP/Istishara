@@ -28,8 +28,8 @@ class QuestionsCivilState extends State<QuestionsCivil> {
   }
 
   void newPost(String text) {
-    var post = new Post(
-        text, widget.user.displayName, 'Civil Engineering', widget.user.uid);
+    var post = new Post(text, widget.user.displayName, 'Civil Engineering',
+        widget.user.uid, DateTime.now().microsecondsSinceEpoch.toString());
     post.setId(savePost(post));
     this.setState(() {
       posts.add(post);

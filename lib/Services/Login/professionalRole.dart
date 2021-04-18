@@ -1,8 +1,12 @@
 //Professional Chooses Role
 
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:istishara/Professional/baseProfessionalHomepage.dart';
+import 'package:istishara/Services/Database/firestore.dart';
 import '../Database/database.dart';
 import '../../Classes/userData.dart';
 
@@ -28,10 +32,13 @@ class _FormScreenState extends State<FormScreen> {
         widget.user.uid, _fieldofWork);
 
     user.setId(addUser(user));
-    // getAllUid().then((uids) => {
-    //       print(uids),
-    //       if (!uids.contains(widget.user.uid)) {user.setId(addUser(user))}
-    //     });
+    if (Platform.isIOS) {
+      FirebaseMessaging.instance.requestPermission().asStream().listen((data) {
+        saveDeviceToken(user.uid);
+      });
+    } else {
+      saveDeviceToken(user.uid);
+    }
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(

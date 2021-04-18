@@ -37,6 +37,14 @@ class _ProfessionalProfileClientState extends State<ProfessionalProfileClient> {
           response.comment,
           response.rating,
         );
+        var temp = [
+          FirebaseAuth.instance.currentUser.displayName,
+          response.rating,
+          response.comment
+        ];
+        this.widget.reviews.add(temp);
+        temp = [];
+        setState(() {});
         print('rating: ${response.rating}, comment: ${response.comment}');
       },
     );

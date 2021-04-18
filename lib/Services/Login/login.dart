@@ -1,7 +1,10 @@
 //Base Login Page
 
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:istishara/Services/Authentication/auth.dart';
 import 'package:istishara/Professional/baseProfessionalHomepage.dart';
@@ -33,6 +36,8 @@ class _BodyState extends State<Body> {
   List uidRole = [];
   Map<dynamic, dynamic> values;
   String key;
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
   @override
   void initState() {
     super.initState();

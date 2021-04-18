@@ -1,13 +1,22 @@
 //Firestore Services
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
+import 'package:istishara/Classes/post.dart';
 import 'package:istishara/Services/Database/database.dart';
 
 CollectionReference chats = FirebaseFirestore.instance.collection('chats');
 CollectionReference ratings = FirebaseFirestore.instance.collection('ratings');
+CollectionReference tokens = FirebaseFirestore.instance.collection('tokens');
 
 Future<void> addChat(String chatID) {
-  return chats.doc(chatID).set({'createdAt': DateTime.now(), 'messages': []});
+  return chats.doc(chatID).set({'modifiedAt': DateTime.now(), 'messages': []});
+}
+
+Future<void> deleteChat(String chatID) {
+  return chats.doc(chatID).delete();
 }
 
 // ignore: missing_return
@@ -20,7 +29,8 @@ Future<void> sendMessage(String chatID, String content, String uid) {
   var temp = [];
   temp.add(data);
   var ref = chats.doc(chatID);
-  ref.update({'messages': FieldValue.arrayUnion(temp)});
+  ref.update(
+      {'modifiedAt': DateTime.now(), 'messages': FieldValue.arrayUnion(temp)});
   temp = [];
 }
 
@@ -100,4 +110,14 @@ Future<List<dynamic>> getUserReviewsbyUid(String uid) async {
     }
   });
   return reviews;
+}
+
+saveDeviceToken(String uid) async {
+  User user = FirebaseAuth.instance.currentUser;
+  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+  String token = await firebaseMessaging.getToken();
+
+  if (token != null) {
+    tokens.doc(uid).set({'token': token});
+  }
 }

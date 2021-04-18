@@ -10,9 +10,10 @@ class Post {
   String author;
   String type;
   Set usersAnswered = {};
+  String createdAt;
   DatabaseReference _id;
 
-  Post(this.body, this.author, this.type, this.uid);
+  Post(this.body, this.author, this.type, this.uid, this.createdAt);
 
   void answerPost(User user) {
     if (this.usersAnswered.contains(user.uid)) {
@@ -38,6 +39,7 @@ class Post {
       'body': this.body,
       'type': this.type,
       'uid': this.uid,
+      'createdAt': this.createdAt,
     };
   }
 }
@@ -48,13 +50,14 @@ Post createPost(record) {
     'usersAnswered': [],
     'body': '',
     'type': '',
-    'uid': ''
+    'uid': '',
+    'createdAt': ''
   };
 
   record.forEach((key, value) => {attributes[key] = value});
 
   Post post = new Post(attributes['body'], attributes['author'],
-      attributes['type'], attributes['uid']);
+      attributes['type'], attributes['uid'], attributes['createdAt']);
   post.usersAnswered = new Set.from(attributes['usersAnswered']);
   return post;
 }

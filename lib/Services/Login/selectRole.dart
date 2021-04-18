@@ -1,9 +1,13 @@
 //Select Between Client And Pro
 
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:istishara/Services/Database/database.dart';
 import 'package:istishara/Client/baseClientHomepage.dart';
+import 'package:istishara/Services/Database/firestore.dart';
 import 'package:istishara/Services/Login/professionalRole.dart';
 import 'package:istishara/Classes/userData.dart';
 
@@ -26,10 +30,14 @@ class _RoleSelection extends State<RoleSelection> {
         widget.user.displayName, widget.user.email, widget.user.uid, 'Client');
 
     user.setId(addUser(user));
-    // getAllUid().then((uids) => {
-    //       print(uids),
-    //       if (!uids.contains(widget.user.uid)) {user.setId(addUser(user))}
-    //     });
+    if (Platform.isIOS) {
+      FirebaseMessaging.instance.requestPermission().asStream().listen((data) {
+        saveDeviceToken(user.uid);
+      });
+    } else {
+      saveDeviceToken(user.uid);
+    }
+
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(

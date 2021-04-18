@@ -28,8 +28,8 @@ class QuestionsIDState extends State<QuestionsID> {
   }
 
   void newPost(String text) {
-    var post = new Post(
-        text, widget.user.displayName, 'Interior Design', widget.user.uid);
+    var post = new Post(text, widget.user.displayName, 'Interior Design',
+        widget.user.uid, DateTime.now().microsecondsSinceEpoch.toString());
     post.setId(savePost(post));
     this.setState(() {
       posts.add(post);

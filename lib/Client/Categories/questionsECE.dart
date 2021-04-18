@@ -28,7 +28,8 @@ class QuestionsECEState extends State<QuestionsECE> {
 
   void newPost(String text) {
     var post = new Post(text, widget.user.displayName,
-        'Electrical & Communications Engineering', widget.user.uid);
+        'Electrical & Communications Engineering', widget.user.uid,
+       DateTime.now().microsecondsSinceEpoch.toString());
     post.setId(savePost(post));
     this.setState(() {
       posts.add(post);

@@ -56,37 +56,74 @@ class _DisplayUserQuestionsState extends State<DisplayUserQuestions> {
       itemBuilder: (context, index) {
         var post = this.widget.listItems[index];
         if (post.uid == widget.user.uid) {
-          return Card(
-            shape: new RoundedRectangleBorder(
-                side: new BorderSide(color: Colors.grey[400], width: 2.0),
-                borderRadius: BorderRadius.circular(4.0)),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                    child: ListTile(
-                  title: Text(post.body),
-                  subtitle: Text(post.author),
-                )),
-                Row(children: <Widget>[
-                  Padding(
-                      padding: EdgeInsets.all(20),
-                      child: TextButton(
-                        child: Text(
-                            "Offers: " + post.usersAnswered.length.toString()),
-                        onPressed: () => {_offerhelpbuttonpressed(post)},
-                        style: TextButton.styleFrom(
-                          primary: Colors.white,
-                          backgroundColor: Colors.orange,
-                          padding: EdgeInsets.all(5),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
-                          ),
-                        ),
-                      )),
-                ]),
-              ],
-            ),
-          );
+          return Dismissible(
+              direction: DismissDirection.endToStart,
+              key: ValueKey<dynamic>(post),
+              background: Container(
+                padding: EdgeInsets.all(10),
+                child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "Swipe to delete",
+                      style: TextStyle(
+                          //add rating in the future
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    )),
+                color: Colors.red,
+              ),
+              onDismissed: (DismissDirection direction) {
+                setState(() {
+                  this.widget.listItems.removeAt(index);
+                  deletePost(post.createdAt);
+                  final snackBar = new SnackBar(
+                    content: Text("Post deleted"),
+                    action: SnackBarAction(
+                      label: 'Undo',
+                      onPressed: () {
+                        this.widget.listItems.add(post);
+                        post.setId(savePost(post));
+                        setState(() {});
+                      },
+                    ),
+                  );
+                  // ignore: deprecated_member_use
+                  Scaffold.of(context).showSnackBar(snackBar);
+                });
+              },
+              child: Card(
+                shape: new RoundedRectangleBorder(
+                    side: new BorderSide(color: Colors.grey[400], width: 2.0),
+                    borderRadius: BorderRadius.circular(4.0)),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                        child: ListTile(
+                      title: Text(post.body),
+                      subtitle: Text(post.author),
+                    )),
+                    Row(children: <Widget>[
+                      Padding(
+                          padding: EdgeInsets.all(20),
+                          child: TextButton(
+                            child: Text("Offers: " +
+                                post.usersAnswered.length.toString()),
+                            onPressed: () => {_offerhelpbuttonpressed(post)},
+                            style: TextButton.styleFrom(
+                              primary: Colors.white,
+                              backgroundColor: Colors.orange,
+                              padding: EdgeInsets.all(5),
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)),
+                              ),
+                            ),
+                          )),
+                    ]),
+                  ],
+                ),
+              ));
         } else {
           return SizedBox(
             height: 0,

@@ -37,6 +37,19 @@ Future<List<Post>> getAllPosts() async {
   return posts;
 }
 
+Future<void> deletePost(String time) async {
+  final dbRef = FirebaseDatabase.instance.reference();
+  var snapshot;
+  snapshot = await dbRef
+      .child('posts/')
+      .orderByChild('createdAt')
+      .equalTo(time)
+      .once();
+  var key = snapshot.value.keys.toList()[0];
+
+  var snapshot1 = await dbRef.child('posts/').child(key).remove();
+}
+
 Future<Set> getAllUid() async {
   DataSnapshot dataSnapshot = await databaseReference.child('users/').once();
 
@@ -81,7 +94,6 @@ Future<String> getNameByUid(String uid) async {
     values = snapshot.value;
     key = values.keys.first;
     name = values[key]['name'];
-    print(values[key]['name']);
   }
 
   return name;

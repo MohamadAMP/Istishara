@@ -28,7 +28,7 @@ class QuestionsMechState extends State<QuestionsMech> {
 
   void newPost(String text) {
     var post = new Post(text, widget.user.displayName, 'Mechanical Engineering',
-        widget.user.uid);
+        widget.user.uid, DateTime.now().microsecondsSinceEpoch.toString());
     post.setId(savePost(post));
     this.setState(() {
       posts.add(post);
