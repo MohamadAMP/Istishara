@@ -8,6 +8,7 @@ import '../Services/Authentication/auth.dart';
 import '../Professional/Chat/displayChatContactsPro.dart';
 import '../Services/Login/login.dart';
 import '../Services/Database/database.dart';
+import '../Services/Database/firestore.dart';
 
 // ignore: must_be_immutable
 class Chat extends StatefulWidget {
@@ -19,6 +20,7 @@ class Chat extends StatefulWidget {
 }
 
 class _ChatState extends State<Chat> with TickerProviderStateMixin {
+  List<dynamic> chats = [];
   List<dynamic> usersAnswered = [];
   List<dynamic> usersNamesPost = [];
   String name = '';
@@ -32,17 +34,27 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
   }
 
   void updateUsers() async {
+    await getUserChatsbyUid(widget.user.uid).then((chats) {
+      setState(() {
+        this.chats = chats;
+      });
+    });
+    print(this.chats);
     List<dynamic> _usersAnswered = [];
     List<dynamic> _usersNamesPost = [];
     List<dynamic> temp = [];
     await getUsersAnswered(widget.user.uid).then((uidPosts) {
       uidPosts.forEach((uidPost) async => {
-            _usersAnswered.add(uidPost[0]),
-            name = await getNameByUid(uidPost[0]),
-            temp.add(name),
-            temp.add(uidPost[1]),
-            _usersNamesPost.add(temp),
-            temp = [],
+            if (chats.contains(uidPost[0]))
+              {
+                print("true"),
+                _usersAnswered.add(uidPost[0]),
+                name = await getNameByUid(uidPost[0]),
+                temp.add(name),
+                temp.add(uidPost[1]),
+                _usersNamesPost.add(temp),
+                temp = [],
+              }
           });
       setState(() {
         this.usersAnswered = _usersAnswered;
@@ -59,6 +71,14 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
     });
   }
 
+  void getChats() async {
+    await getUserChatsbyUid(widget.user.uid).then((chats) {
+      setState(() {
+        this.chats = chats;
+      });
+    });
+  }
+
   @override
   void initState() {
     controller = AnimationController(
@@ -67,11 +87,12 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
     )..addListener(() {
         setState(() {});
       });
-    controller.repeat(max: 1);
-    controller.forward();
+    controller.repeat(reverse: true);
+
     super.initState();
     updateUsers();
     getUserInfo();
+    getChats();
   }
 
   @override
@@ -107,8 +128,8 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
                 ],
               ),
             ]),
-            body: DisplayChatContacts(
-                this.usersNamesPost, this.usersAnswered, this.widget.user.uid));
+            body: DisplayChatContacts(this.usersNamesPost, this.usersAnswered,
+                this.widget.user.uid, this.chats));
       } else {
         return Scaffold(
             appBar: AppBar(title: Text('Messages'), actions: <Widget>[

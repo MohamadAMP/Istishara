@@ -10,7 +10,9 @@ class DisplayChatContacts extends StatefulWidget {
   List<dynamic> usersNamesPosts;
   List<dynamic> usersAnswered;
   String uid;
-  DisplayChatContacts(this.usersNamesPosts, this.usersAnswered, this.uid);
+  List<dynamic> chats;
+  DisplayChatContacts(
+      this.usersNamesPosts, this.usersAnswered, this.uid, this.chats);
 
   @override
   _DisplayChatContactsState createState() => _DisplayChatContactsState();
@@ -21,16 +23,8 @@ class _DisplayChatContactsState extends State<DisplayChatContacts> {
     String uidComb = uidReceived + widget.uid;
     CollectionReference chat = FirebaseFirestore.instance.collection('chats');
     var snapshot = await chat.doc(uidComb).get();
-    print(snapshot.data());
+    //print(snapshot.data());
     if (snapshot.data() != null) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  ChatDisplayPage(name, uidComb, widget.uid, uidReceived)));
-    } else {
-      addChat(uidComb);
-      print('else statement');
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -41,6 +35,8 @@ class _DisplayChatContactsState extends State<DisplayChatContacts> {
 
   @override
   Widget build(BuildContext context) {
+    //print(widget.usersAnswered);
+    //print(widget.usersNamesPosts);
     return ListView.builder(
         itemCount: this.widget.usersNamesPosts.length,
         // ignore: missing_return

@@ -144,17 +144,17 @@ Future<List<dynamic>> getUsersAnswered(String uid) async {
   posts.forEach((post) => {
         if (post.uid == uid)
           {
-            print(post.author),
+            //print(post.author),
             post.usersAnswered.forEach((uid) => {
                   temp.add(uid),
                   temp.add(post.body),
-                  print(temp),
+                  //print(temp),
                   usersAnswered.add(temp),
                   temp = [],
                 })
           }
       });
-  print(usersAnswered);
+  //print(usersAnswered);
   return usersAnswered;
 }
 

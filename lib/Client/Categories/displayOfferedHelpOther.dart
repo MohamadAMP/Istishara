@@ -8,16 +8,17 @@ import 'package:istishara/Common%20FIles/baseProfessionalProfile.dart';
 import 'package:istishara/Services/Database/firestore.dart';
 
 // ignore: must_be_immutable
-class DisplayOfferedHelp extends StatefulWidget {
+class DisplayOfferedHelpOther extends StatefulWidget {
   final List<dynamic> uidName;
 
-  DisplayOfferedHelp(this.uidName);
+  DisplayOfferedHelpOther(this.uidName);
 
   @override
-  _DisplayOfferedHelpState createState() => _DisplayOfferedHelpState();
+  _DisplayOfferedHelpOtherState createState() =>
+      _DisplayOfferedHelpOtherState();
 }
 
-class _DisplayOfferedHelpState extends State<DisplayOfferedHelp> {
+class _DisplayOfferedHelpOtherState extends State<DisplayOfferedHelpOther> {
   List<dynamic> uidName = [];
   User user = FirebaseAuth.instance.currentUser;
 
@@ -38,43 +39,6 @@ class _DisplayOfferedHelpState extends State<DisplayOfferedHelp> {
   void click(uid) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => ProfessionalProfileHelp(uid)));
-  }
-
-  Future<void> chat(uid, name) async {
-    String uidComb = uid + user.uid;
-    CollectionReference chat = FirebaseFirestore.instance.collection('chats');
-    var snapshot = await chat.doc(uidComb).get();
-    CollectionReference chatList =
-        FirebaseFirestore.instance.collection('chatList');
-    var snapshotOther = await chatList.doc(uid).get();
-    var snapshotUser = await chatList.doc(user.uid).get();
-    //print(snapshot.data());
-    if (snapshot.data() != null) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  ChatDisplayPage(name, uidComb, user.uid, uid)));
-    } else {
-      addChat(uidComb);
-      if (snapshotUser.data() != null) {
-        updateChatList(user.uid, uid);
-      } else {
-        addChatList(user.uid, "Client");
-        updateChatList(user.uid, uid);
-      }
-      if (snapshotOther.data() != null) {
-        updateChatList(uid, user.uid);
-      } else {
-        addChatList(uid, "Advisor");
-        updateChatList(uid, user.uid);
-      }
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  ChatDisplayPage(name, uidComb, user.uid, uid)));
-    }
   }
 
   @override
@@ -109,20 +73,6 @@ class _DisplayOfferedHelpState extends State<DisplayOfferedHelp> {
                     child: ListTile(
                   title: Text(name),
                 )),
-                Padding(
-                    padding: EdgeInsets.all(1),
-                    child: TextButton(
-                      child: Text("Chat"),
-                      onPressed: () => {this.chat(uid, name)},
-                      style: TextButton.styleFrom(
-                        primary: Colors.white,
-                        backgroundColor: Colors.orange,
-                        padding: EdgeInsets.all(5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                        ),
-                      ),
-                    )),
                 Padding(
                     padding: EdgeInsets.all(20),
                     child: TextButton(

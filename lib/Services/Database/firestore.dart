@@ -3,16 +3,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
-import 'package:istishara/Classes/post.dart';
 import 'package:istishara/Services/Database/database.dart';
 
 CollectionReference chats = FirebaseFirestore.instance.collection('chats');
 CollectionReference ratings = FirebaseFirestore.instance.collection('ratings');
 CollectionReference tokens = FirebaseFirestore.instance.collection('tokens');
+CollectionReference chatList =
+    FirebaseFirestore.instance.collection('chatList');
 
 Future<void> addChat(String chatID) {
   return chats.doc(chatID).set({'modifiedAt': DateTime.now(), 'messages': []});
+}
+
+Future<void> addChatList(String uid, String type) {
+  return chatList.doc(uid).set({'type': type, 'chats': []});
+}
+
+Future<void> updateChatList(String uid, String uidOther) async {
+  var temp = [];
+  temp.add(uidOther);
+  var ref = chatList.doc(uid);
+  ref.update({'chats': FieldValue.arrayUnion(temp)});
+  temp = [];
 }
 
 Future<void> deleteChat(String chatID) {
@@ -40,9 +52,9 @@ Future<void> addRating(
   String comment,
   int starsCount,
 ) async {
-  print('test');
+  //print('test');
   var doc = await ratings.doc(uidReceiver).get();
-  print(doc);
+  //print(doc);
   if (!(doc.exists)) {
     var data = {
       'comment': comment,
@@ -85,7 +97,7 @@ Future<List<dynamic>> getUserRatingByUid(String uid) async {
 
   ratingJobsDone.add(stars / jobsDone);
   ratingJobsDone.add(jobsDone);
-  print(data);
+  //print(data);
 
   return ratingJobsDone;
 }
@@ -110,6 +122,19 @@ Future<List<dynamic>> getUserReviewsbyUid(String uid) async {
     }
   });
   return reviews;
+}
+
+Future<List<dynamic>> getUserChatsbyUid(String uid) async {
+  var chats = [];
+  var doc = await chatList.doc(uid).get();
+  if (!doc.exists) {
+    return [];
+  }
+  var x = doc.data().values.first;
+  chats = x;
+  print(chats);
+
+  return chats;
 }
 
 saveDeviceToken(String uid) async {

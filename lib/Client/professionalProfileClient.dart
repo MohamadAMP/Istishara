@@ -45,7 +45,7 @@ class _ProfessionalProfileClientState extends State<ProfessionalProfileClient> {
         this.widget.reviews.add(temp);
         temp = [];
         setState(() {});
-        print('rating: ${response.rating}, comment: ${response.comment}');
+        //print('rating: ${response.rating}, comment: ${response.comment}');
       },
     );
 

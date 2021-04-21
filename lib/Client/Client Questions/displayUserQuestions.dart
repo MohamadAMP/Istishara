@@ -22,10 +22,20 @@ class _DisplayUserQuestionsState extends State<DisplayUserQuestions> {
   List<Post> userPosts = [];
   List<String> names = [];
   List<dynamic> uidName = [];
+  String type = '';
+  User user = FirebaseAuth.instance.currentUser;
 
   void post(Function callBack) {
     this.setState(() {
       callBack();
+    });
+  }
+
+  void getUserType(String uid) async {
+    getUserDataByUid(uid).then((value) {
+      setState(() {
+        type = value[1];
+      });
     });
   }
 
@@ -40,6 +50,7 @@ class _DisplayUserQuestionsState extends State<DisplayUserQuestions> {
   void _offerhelpbuttonpressed(Post post) {
     setState(() {
       updateUidName(post);
+      getUserType(user.uid);
 
       Future.delayed(Duration(seconds: 1), () {
         Navigator.push(context,

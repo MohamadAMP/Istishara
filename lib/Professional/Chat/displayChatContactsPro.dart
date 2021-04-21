@@ -17,6 +17,7 @@ class DisplayChatContactsPro extends StatefulWidget {
 
 class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
     with TickerProviderStateMixin {
+  List<dynamic> chats = [];
   List<dynamic> usersAnswered = [];
   List<dynamic> usersNamesPost = [];
   String name = '';
@@ -25,20 +26,29 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
   AnimationController controller;
 
   Future<void> getProUsersAnswered() async {
+    await getUserChatsbyUid(widget.uid).then((chats) {
+      setState(() {
+        this.chats = chats;
+      });
+    });
+    print(this.chats);
     List<dynamic> _usersAnswered = [];
     List<dynamic> _usersNamesPost = [];
     List<dynamic> temp = [];
     await getUsersAnsweredPro(widget.uid).then((uidPosts) {
       uidPosts.forEach((uidPost) async => {
-            name = await getNameByUid(uidPost[0]),
-            print(uidPost[0]),
-            print(name),
-            post = uidPost[1],
-            temp.add(name),
-            temp.add(post),
-            _usersNamesPost.add(temp),
-            _usersAnswered.add(uidPost[0]),
-            temp = [],
+            if (chats.contains(uidPost[0]))
+              {
+                name = await getNameByUid(uidPost[0]),
+                //print(uidPost[0]),
+                //print(name),
+                post = uidPost[1],
+                temp.add(name),
+                temp.add(post),
+                _usersNamesPost.add(temp),
+                _usersAnswered.add(uidPost[0]),
+                temp = [],
+              }
           });
       setState(() {
         this.usersAnswered = _usersAnswered;
@@ -53,14 +63,6 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
     var snapshot = await chat.doc(uidComb).get();
 
     if (snapshot.data() != null) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  ChatDisplayPagePro(name, uidComb, widget.uid)));
-    } else {
-      addChat(uidComb);
-      print('else statement');
       Navigator.push(
           context,
           MaterialPageRoute(
