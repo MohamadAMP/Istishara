@@ -2,7 +2,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:istishara/Services/Database/firestore.dart';
 import 'chatClient.dart';
 
 // ignore: must_be_immutable

@@ -2,7 +2,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:istishara/Client/Client%20Questions/offeredHelp.dart';
 import 'package:istishara/Services/Database/database.dart';
 import '../../Classes/post.dart';
 import 'offeredHelpOther.dart';

@@ -36,24 +36,20 @@ Future<void> deleteChat(String chatID) {
 // ignore: missing_return
 Future<void> sendMessage(
     String chatID, String content, String uid, String sentTo) async {
-  var name = await getNameByUid(uid);
-  print(name);
-  var doc = await messagePile.doc(sentTo).get();
-  if (!doc.exists) {
-    await messagePile.doc(sentTo).set({'messages': []});
-  }
-  var msgPileRef = messagePile.doc(sentTo);
+  var nameFrom = await getNameByUid(uid);
+  var nameTo = await getNameByUid(sentTo);
+  await messagePile.add({
+    'fromUID': uid,
+    'fromName': nameFrom,
+    'toUID': sentTo,
+    'toName': nameTo,
+    'content': content
+  });
   var data = {
     'content': content,
     'createdAt': DateTime.now(),
     'uidUser': uid,
     'sentTo': sentTo
-  };
-  var msgPile = {
-    'content': content,
-    'from': uid,
-    'name': name,
-    'time': data['createdAt']
   };
 
   var temp = [];
@@ -61,9 +57,6 @@ Future<void> sendMessage(
   var ref = chats.doc(chatID);
   ref.update(
       {'modifiedAt': DateTime.now(), 'messages': FieldValue.arrayUnion(temp)});
-  temp = [];
-  temp.add(msgPile);
-  msgPileRef.update({'messages': FieldValue.arrayUnion(temp)});
   temp = [];
 }
 

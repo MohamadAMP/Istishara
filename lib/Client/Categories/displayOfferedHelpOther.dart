@@ -1,11 +1,8 @@
 //Displays All Advisors That Offered Help On A Certain Question
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:istishara/Client/Chat/chatClient.dart';
 import 'package:istishara/Common%20FIles/baseProfessionalProfile.dart';
-import 'package:istishara/Services/Database/firestore.dart';
 
 // ignore: must_be_immutable
 class DisplayOfferedHelpOther extends StatefulWidget {
