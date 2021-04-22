@@ -22,3 +22,4 @@ export const sendToDevice = functions.firestore.document("ratings/{ratingId}").o
       };
       return fcm.sendToDevice(tokens, payload);
 });
+

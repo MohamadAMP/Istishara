@@ -30,7 +30,7 @@ class _DisplayMessagesState extends State<DisplayMessages> {
         var text = widget.messages[index]['content'];
         var time = widget.messages[index]['createdAt'].toDate();
         var dateFormatted = DateFormat.yMd().add_jm().format(time).toString();
-        var uid = widget.messages[index]['uid'];
+        var uid = widget.messages[index]['uidUser'];
         Message msg = new Message(text: text, time: dateFormatted);
         if (uid == user.uid) {
           return Align(

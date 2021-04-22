@@ -67,7 +67,7 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  ChatDisplayPagePro(name, uidComb, widget.uid)));
+                  ChatDisplayPagePro(name, uidComb, widget.uid, uidReceived)));
     }
   }
 

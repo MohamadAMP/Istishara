@@ -12,7 +12,8 @@ class ChatDisplayPagePro extends StatefulWidget {
   String name;
   String docID;
   String uid;
-  ChatDisplayPagePro(this.name, this.docID, this.uid);
+  String uidReceived;
+  ChatDisplayPagePro(this.name, this.docID, this.uid, this.uidReceived);
   @override
   _ChatDisplayPageProState createState() => _ChatDisplayPageProState();
 }
@@ -46,7 +47,7 @@ class _ChatDisplayPageProState extends State<ChatDisplayPagePro> {
             },
           )),
           Container(child: MessageForm((value) {
-            sendMessage(widget.docID, value, widget.uid);
+            sendMessage(widget.docID, value, widget.uid, widget.uidReceived);
           }))
         ]));
   }

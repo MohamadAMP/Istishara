@@ -32,11 +32,13 @@ Future<void> deleteChat(String chatID) {
 }
 
 // ignore: missing_return
-Future<void> sendMessage(String chatID, String content, String uid) {
+Future<void> sendMessage(
+    String chatID, String content, String uid, String sentTo) {
   var data = {
     'content': content,
     'createdAt': DateTime.now(),
-    'uid': uid,
+    'uidUser': uid,
+    'sentTo': sentTo
   };
   var temp = [];
   temp.add(data);
