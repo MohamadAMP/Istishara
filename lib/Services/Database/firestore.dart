@@ -10,6 +10,8 @@ CollectionReference ratings = FirebaseFirestore.instance.collection('ratings');
 CollectionReference tokens = FirebaseFirestore.instance.collection('tokens');
 CollectionReference chatList =
     FirebaseFirestore.instance.collection('chatList');
+CollectionReference messagePile =
+    FirebaseFirestore.instance.collection('messagePile');
 
 Future<void> addChat(String chatID) {
   return chats.doc(chatID).set({'modifiedAt': DateTime.now(), 'messages': []});
@@ -22,7 +24,7 @@ Future<void> addChatList(String uid, String type) {
 Future<void> updateChatList(String uid, String uidOther) async {
   var temp = [];
   temp.add(uidOther);
-  var ref = chatList.doc(uid);
+  var ref = await chatList.doc(uid);
   ref.update({'chats': FieldValue.arrayUnion(temp)});
   temp = [];
 }
@@ -33,18 +35,35 @@ Future<void> deleteChat(String chatID) {
 
 // ignore: missing_return
 Future<void> sendMessage(
-    String chatID, String content, String uid, String sentTo) {
+    String chatID, String content, String uid, String sentTo) async {
+  var name = await getNameByUid(uid);
+  print(name);
+  var doc = await messagePile.doc(sentTo).get();
+  if (!doc.exists) {
+    await messagePile.doc(sentTo).set({'messages': []});
+  }
+  var msgPileRef = messagePile.doc(sentTo);
   var data = {
     'content': content,
     'createdAt': DateTime.now(),
     'uidUser': uid,
     'sentTo': sentTo
   };
+  var msgPile = {
+    'content': content,
+    'from': uid,
+    'name': name,
+    'time': data['createdAt']
+  };
+
   var temp = [];
   temp.add(data);
   var ref = chats.doc(chatID);
   ref.update(
       {'modifiedAt': DateTime.now(), 'messages': FieldValue.arrayUnion(temp)});
+  temp = [];
+  temp.add(msgPile);
+  msgPileRef.update({'messages': FieldValue.arrayUnion(temp)});
   temp = [];
 }
 

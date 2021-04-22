@@ -47,7 +47,12 @@ class _ChatDisplayPageProState extends State<ChatDisplayPagePro> {
             },
           )),
           Container(child: MessageForm((value) {
-            sendMessage(widget.docID, value, widget.uid, widget.uidReceived);
+            sendMessage(
+              widget.docID,
+              value,
+              widget.uid,
+              widget.uidReceived,
+            );
           }))
         ]));
   }
