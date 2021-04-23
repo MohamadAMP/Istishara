@@ -11,8 +11,9 @@ class ProfessionalProfileClient extends StatefulWidget {
   int jobsDone;
   double rating;
   List<dynamic> reviews;
+  List<dynamic> bioImage;
   ProfessionalProfileClient(
-      this.userData, this.jobsDone, this.rating, this.reviews);
+      this.userData, this.jobsDone, this.rating, this.reviews, this.bioImage);
   @override
   _ProfessionalProfileClientState createState() =>
       _ProfessionalProfileClientState();
@@ -217,7 +218,9 @@ class _ProfessionalProfileClientState extends State<ProfessionalProfileClient> {
                 ),
                 SizedBox(height: 5.0),
                 Text(
-                  "This is a bunch of text that you should not worry about right now.",
+                  this.widget.bioImage.isNotEmpty
+                      ? this.widget.bioImage[0]
+                      : "User does not have a bio yet",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 15,
@@ -418,7 +421,9 @@ class _ProfessionalProfileClientState extends State<ProfessionalProfileClient> {
                 ),
                 SizedBox(height: 5.0),
                 Text(
-                  "This is a bunch of text that you should not worry about right now.",
+                  this.widget.bioImage.isNotEmpty
+                      ? this.widget.bioImage[0]
+                      : "User does not have a bio yet",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 15,

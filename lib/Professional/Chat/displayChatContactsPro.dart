@@ -31,7 +31,7 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
         this.chats = chats;
       });
     });
-    print(this.chats);
+    //print(this.chats);
     List<dynamic> _usersAnswered = [];
     List<dynamic> _usersNamesPost = [];
     List<dynamic> temp = [];

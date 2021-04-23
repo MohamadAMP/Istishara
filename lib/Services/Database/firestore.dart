@@ -12,9 +12,25 @@ CollectionReference chatList =
     FirebaseFirestore.instance.collection('chatList');
 CollectionReference messagePile =
     FirebaseFirestore.instance.collection('messagePile');
+CollectionReference proData = FirebaseFirestore.instance.collection('proData');
 
 Future<void> addChat(String chatID) {
   return chats.doc(chatID).set({'modifiedAt': DateTime.now(), 'messages': []});
+}
+
+Future<void> addOrUpdateProData(String uid, String bio) {
+  return proData.doc(uid).set({'bio': bio, 'image': ''});
+}
+
+Future<void> updateProData(String uid, String bio) async {
+  var doc = await proData.doc(uid).get();
+
+  if (!doc.exists) {
+    await proData.doc(uid).set({'bio': bio, 'image': ''});
+  }
+
+  var ref = proData.doc(uid);
+  return ref.update({'bio': bio});
 }
 
 Future<void> addChatList(String uid, String type) {
@@ -146,7 +162,7 @@ Future<List<dynamic>> getUserChatsbyUid(String uid) async {
   }
   var x = doc.data().values.first;
   chats = x;
-  print(chats);
+  //print(chats);
 
   return chats;
 }
@@ -159,4 +175,15 @@ saveDeviceToken(String uid) async {
   if (token != null) {
     tokens.doc(uid).set({'token': token});
   }
+}
+
+Future<List<dynamic>> getUserBioAndImage(String uid) async {
+  var bioImage = [];
+  var ref = await proData.doc(uid).get();
+
+  //print(ref.data());
+  if (ref.exists) {
+    bioImage.add(ref.data());
+  }
+  return bioImage;
 }

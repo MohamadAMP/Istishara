@@ -39,7 +39,7 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
         this.chats = chats;
       });
     });
-    print(this.chats);
+    //print(this.chats);
     List<dynamic> _usersAnswered = [];
     List<dynamic> _usersNamesPost = [];
     List<dynamic> temp = [];
@@ -47,7 +47,7 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
       uidPosts.forEach((uidPost) async => {
             if (chats.contains(uidPost[0]))
               {
-                print("true"),
+                //print("true"),
                 _usersAnswered.add(uidPost[0]),
                 name = await getNameByUid(uidPost[0]),
                 temp.add(name),

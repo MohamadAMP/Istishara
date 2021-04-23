@@ -25,6 +25,7 @@ class ProfessionalProfileHelpState extends State<ProfessionalProfileHelp>
   int jobsDone;
   double rating;
   List<dynamic> reviews = [];
+  List<dynamic> bioImage = [];
   AnimationController controller;
 
   Future<void> updateUserData() async {
@@ -57,6 +58,18 @@ class ProfessionalProfileHelpState extends State<ProfessionalProfileHelp>
     });
   }
 
+  Future<void> getUserData() async {
+    await getUserBioAndImage(widget.uid).then((value) {
+      if (value.isNotEmpty) {
+        setState(() {
+          this.bioImage.add(value[0]['bio']);
+          this.bioImage.add(value[0]['image']);
+          //print(this.bioImage);
+        });
+      }
+    });
+  }
+
   @override
   void initState() {
     controller = AnimationController(
@@ -71,6 +84,7 @@ class ProfessionalProfileHelpState extends State<ProfessionalProfileHelp>
     updateUserData();
     getUserRating();
     getUserReviews();
+    this.getUserData();
   }
 
   @override
@@ -89,15 +103,15 @@ class ProfessionalProfileHelpState extends State<ProfessionalProfileHelp>
       return Scaffold(
           body: Column(children: <Widget>[
         Expanded(
-            child: ProfessionalProfileClient(
-                this.userData, this.jobsDone, this.rating, this.reviews)),
+            child: ProfessionalProfileClient(this.userData, this.jobsDone,
+                this.rating, this.reviews, this.bioImage)),
       ]));
     } else {
       return Scaffold(
           body: Column(children: <Widget>[
         Expanded(
-            child: ProfessionalProfile(
-                this.userData, this.jobsDone, this.rating, this.reviews)),
+            child: ProfessionalProfile(this.userData, this.jobsDone,
+                this.rating, this.reviews, this.bioImage)),
       ]));
     }
   }

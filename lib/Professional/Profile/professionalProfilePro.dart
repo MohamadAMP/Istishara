@@ -1,6 +1,10 @@
 //Display Professional Profile (Professional View)
 
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:istishara/Services/Database/firestore.dart';
 
 import '../../Services/Authentication/auth.dart';
 import '../../Services/Login/login.dart';
@@ -11,7 +15,9 @@ class ProfessionalProfile extends StatefulWidget {
   int jobsDone;
   double rating;
   List<dynamic> reviews;
-  ProfessionalProfile(this.userData, this.jobsDone, this.rating, this.reviews);
+  List<dynamic> bioImage;
+  ProfessionalProfile(
+      this.userData, this.jobsDone, this.rating, this.reviews, this.bioImage);
   @override
   _ProfessionalProfileState createState() => _ProfessionalProfileState();
 }
@@ -20,6 +26,82 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
     with TickerProviderStateMixin {
   AnimationController controller;
   Set<dynamic> userData;
+  final _controller = new TextEditingController();
+  var bio;
+  var bioDisplay;
+  User user = FirebaseAuth.instance.currentUser;
+
+  void click() {
+    if (bio != null) {
+      addOrUpdateProData(user.uid, bio);
+      _controller.clear();
+      setState(() {
+        widget.bioImage[0] = bio;
+      });
+    }
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Center(
+            child: Text('Edit Profile'),
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                TextButton(
+                  style: TextButton.styleFrom(
+                      primary: Colors.grey[800],
+                      backgroundColor: Colors.orange),
+                  onPressed: () async {},
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Icon(Icons.image),
+                        Text("Change profile picture")
+                      ]),
+                ),
+                SizedBox(height: 20),
+                Center(
+                  child: Text('Edit Bio:'),
+                ),
+                TextField(
+                  controller: this._controller,
+                  decoration: InputDecoration(hintText: ""),
+                  maxLines: 2,
+                  onChanged: (value) {
+                    setState(() {
+                      bio = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Submit'),
+              onPressed: () {
+                this.click();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     // ignore: todo
@@ -31,8 +113,8 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
     )..addListener(() {
         setState(() {});
       });
-    controller.repeat(max: 1);
-    controller.forward();
+    controller.repeat(reverse: true);
+
     this.userData = widget.userData.toSet();
   }
 
@@ -180,7 +262,9 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
                             ),
                             // ignore: deprecated_member_use
                             OutlineButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+                                _showMyDialog();
+                              },
                               icon: Icon(Icons.edit, size: 18),
                               label: Text(
                                 "Edit Profile",
@@ -210,9 +294,11 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
                           fontSize: 18,
                         ),
                       ),
-                      SizedBox(height: 5.0),
+                      SizedBox(height: 10.0),
                       Text(
-                        "This is a bunch of text that you should not worry about right now.",
+                        this.widget.bioImage.isNotEmpty
+                            ? this.widget.bioImage[0]
+                            : "You have not entered your bio yet",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
@@ -222,7 +308,7 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
                   ),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 25,
                 ),
                 Container(
                     width: MediaQuery.of(context).size.width,
@@ -434,7 +520,9 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
                       ),
                       SizedBox(height: 5.0),
                       Text(
-                        "This is a bunch of text that you should not worry about right now.",
+                        this.widget.bioImage.isNotEmpty
+                            ? this.widget.bioImage[0]
+                            : "You have not entered your bio yet",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
