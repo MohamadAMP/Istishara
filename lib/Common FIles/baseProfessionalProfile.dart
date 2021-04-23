@@ -27,6 +27,7 @@ class ProfessionalProfileHelpState extends State<ProfessionalProfileHelp>
   List<dynamic> reviews = [];
   List<dynamic> bioImage = [];
   AnimationController controller;
+  var link;
 
   Future<void> updateUserData() async {
     await getUserDataByUid(this.widget.uid).then((userData) {
@@ -37,6 +38,17 @@ class ProfessionalProfileHelpState extends State<ProfessionalProfileHelp>
     await getUserDataByUid(user.uid).then((userData) {
       setState(() {
         this.currentUserData = userData;
+      });
+    });
+  }
+
+  Future<void> getPhotoUrl() async {
+    var uid = widget.uid;
+    await getProfilePic(uid).then((link) {
+      setState(() {
+        print(uid);
+        print(link);
+        this.link = link;
       });
     });
   }
@@ -84,6 +96,7 @@ class ProfessionalProfileHelpState extends State<ProfessionalProfileHelp>
     updateUserData();
     getUserRating();
     getUserReviews();
+    getPhotoUrl();
     this.getUserData();
   }
 
@@ -104,7 +117,7 @@ class ProfessionalProfileHelpState extends State<ProfessionalProfileHelp>
           body: Column(children: <Widget>[
         Expanded(
             child: ProfessionalProfileClient(this.userData, this.jobsDone,
-                this.rating, this.reviews, this.bioImage)),
+                this.rating, this.reviews, this.bioImage, this.link)),
       ]));
     } else {
       return Scaffold(

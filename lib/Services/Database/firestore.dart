@@ -13,6 +13,8 @@ CollectionReference chatList =
 CollectionReference messagePile =
     FirebaseFirestore.instance.collection('messagePile');
 CollectionReference proData = FirebaseFirestore.instance.collection('proData');
+CollectionReference profilePics =
+    FirebaseFirestore.instance.collection('profilePics');
 
 Future<void> addChat(String chatID) {
   return chats.doc(chatID).set({'modifiedAt': DateTime.now(), 'messages': []});
@@ -186,4 +188,20 @@ Future<List<dynamic>> getUserBioAndImage(String uid) async {
     bioImage.add(ref.data());
   }
   return bioImage;
+}
+
+Future<void> addOrUpdateProfilePic(String uid, String url) async {
+  var ref = await profilePics.doc(uid).get();
+
+  if (ref.exists) {
+    profilePics.doc(uid).update({'link': url});
+  } else {
+    return profilePics.doc(uid).set({'link': url});
+  }
+}
+
+Future<String> getProfilePic(String uid) async {
+  var ref = await profilePics.doc(uid).get();
+  print(ref.data());
+  return ref.data()['link'];
 }

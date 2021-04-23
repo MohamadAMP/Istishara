@@ -1,6 +1,7 @@
 //Provides All Authentication Services
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -26,6 +27,14 @@ Future<User> signInWithGoogle() async {
   assert(currentUser.uid == user.uid);
 
   return user;
+}
+
+getProfileImage() async {
+  if (_auth.currentUser.photoURL != null) {
+    return Image.network(_auth.currentUser.photoURL, height: 120, width: 120);
+  } else {
+    return Icon(Icons.account_circle, size: 120);
+  }
 }
 
 void signOut() async {

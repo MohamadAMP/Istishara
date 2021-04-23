@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:istishara/Services/Authentication/auth.dart';
 import 'package:istishara/Professional/baseProfessionalHomepage.dart';
+import 'package:istishara/Services/Database/firestore.dart';
 import 'package:istishara/Services/Login/selectRole.dart';
 
 import '../../Client/baseClientHomepage.dart';
@@ -45,6 +46,7 @@ class _BodyState extends State<Body> {
   void click() {
     signInWithGoogle().then((user) async => {
           this.user = user,
+          await addOrUpdateProfilePic(user.uid, user.photoURL),
           snapshot = await dbRef
               .child('users/')
               .orderByChild('uid')

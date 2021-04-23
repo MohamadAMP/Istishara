@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:istishara/Services/Authentication/auth.dart';
 import 'package:istishara/Services/Database/firestore.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
@@ -12,8 +13,9 @@ class ProfessionalProfileClient extends StatefulWidget {
   double rating;
   List<dynamic> reviews;
   List<dynamic> bioImage;
-  ProfessionalProfileClient(
-      this.userData, this.jobsDone, this.rating, this.reviews, this.bioImage);
+  var link;
+  ProfessionalProfileClient(this.userData, this.jobsDone, this.rating,
+      this.reviews, this.bioImage, this.link);
   @override
   _ProfessionalProfileClientState createState() =>
       _ProfessionalProfileClientState();
@@ -21,7 +23,8 @@ class ProfessionalProfileClient extends StatefulWidget {
 
 class _ProfessionalProfileClientState extends State<ProfessionalProfileClient> {
   Set<dynamic> userData;
-
+  User user = FirebaseAuth.instance.currentUser;
+  var link;
   void _showRatingDialog() {
     final _dialog = RatingDialog(
       // your app's name?
@@ -64,10 +67,12 @@ class _ProfessionalProfileClientState extends State<ProfessionalProfileClient> {
     // TODO: implement initState
     super.initState();
     this.userData = widget.userData.toSet();
+    this.link = widget.link;
   }
 
   @override
   Widget build(BuildContext context) {
+    var pic = Image.network(this.link, height: 120, width: 120);
     this.userData = this.widget.userData.toSet();
     if (widget.reviews.isNotEmpty) {
       return Scaffold(
@@ -76,24 +81,27 @@ class _ProfessionalProfileClientState extends State<ProfessionalProfileClient> {
             child: Column(children: <Widget>[
           Container(
             color: Colors.orange[400],
-            height: 260,
+            height: 230,
             child: Padding(
               padding: EdgeInsets.only(left: 0.0, right: 30.0, top: 30.0),
               child: Column(
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Container(
-                        height: 100,
-                        width: 200,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage("assets/login.jpeg"))),
-                      ),
-                      SizedBox(
-                        width: 5,
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 40, 0),
+                        child: Container(
+                          height: 120,
+                          width: 120,
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: pic.image != null
+                                      ? pic.image
+                                      : Icon(Icons.account_circle, size: 120))),
+                        ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,7 +128,7 @@ class _ProfessionalProfileClientState extends State<ProfessionalProfileClient> {
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -281,24 +289,27 @@ class _ProfessionalProfileClientState extends State<ProfessionalProfileClient> {
             child: Column(children: <Widget>[
           Container(
             color: Colors.orange[400],
-            height: 260,
+            height: 230,
             child: Padding(
               padding: EdgeInsets.only(left: 0.0, right: 30.0, top: 30.0),
               child: Column(
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Container(
-                        height: 100,
-                        width: 200,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage("assets/login.jpeg"))),
-                      ),
-                      SizedBox(
-                        width: 5,
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 40, 0),
+                        child: Container(
+                          height: 120,
+                          width: 120,
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: pic.image != null
+                                      ? pic.image
+                                      : Icon(Icons.account_circle, size: 120))),
+                        ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -325,7 +336,7 @@ class _ProfessionalProfileClientState extends State<ProfessionalProfileClient> {
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

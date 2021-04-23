@@ -31,6 +31,7 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
   var bioDisplay;
   User user = FirebaseAuth.instance.currentUser;
 
+  var url = FirebaseAuth.instance.currentUser.photoURL;
   void click() {
     if (bio != null) {
       addOrUpdateProData(user.uid, bio);
@@ -48,27 +49,12 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
       builder: (BuildContext context) {
         return AlertDialog(
           title: Center(
-            child: Text('Edit Profile'),
+            child: Text('Edit About Me'),
           ),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                TextButton(
-                  style: TextButton.styleFrom(
-                      primary: Colors.grey[800],
-                      backgroundColor: Colors.orange),
-                  onPressed: () async {},
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Icon(Icons.image),
-                        Text("Change profile picture")
-                      ]),
-                ),
                 SizedBox(height: 20),
-                Center(
-                  child: Text('Edit Bio:'),
-                ),
                 TextField(
                   controller: this._controller,
                   decoration: InputDecoration(hintText: ""),
@@ -120,6 +106,7 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
 
   @override
   Widget build(BuildContext context) {
+    var pic = Image.network(this.url, height: 120, width: 120);
     this.userData = this.widget.userData.toSet();
     if (widget.rating == null) {
       return Scaffold(
@@ -152,24 +139,27 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
               child: Column(children: <Widget>[
                 Container(
                   color: Colors.orange[400],
-                  height: 260,
+                  height: 230,
                   child: Padding(
                     padding: EdgeInsets.only(left: 0.0, right: 30.0, top: 30.0),
                     child: Column(
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            Container(
-                              height: 100,
-                              width: 200,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage("assets/login.jpeg"))),
-                            ),
-                            SizedBox(
-                              width: 5,
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 40, 0),
+                              child: Container(
+                                height: 120,
+                                width: 120,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: pic.image != null
+                                            ? pic.image
+                                            : Icon(Icons.account_circle,
+                                                size: 120))),
+                              ),
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -196,7 +186,7 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
                           ],
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -323,7 +313,7 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
                       ),
                     ))),
                 Container(
-                    height: 225,
+                    height: 237,
                     child: ListView.builder(
                       itemCount: this.widget.reviews.length,
                       // ignore: missing_return
@@ -378,24 +368,28 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
               child: Column(children: <Widget>[
                 Container(
                   color: Colors.orange[400],
-                  height: 260,
+                  height: 230,
                   child: Padding(
                     padding: EdgeInsets.only(left: 0.0, right: 30.0, top: 30.0),
                     child: Column(
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            Container(
-                              height: 100,
-                              width: 200,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage("assets/login.jpeg"))),
-                            ),
-                            SizedBox(
-                              width: 5,
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 40, 0),
+                              child: Container(
+                                height: 120,
+                                width: 120,
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: pic.image != null
+                                            ? pic.image
+                                            : Icon(Icons.account_circle,
+                                                size: 120))),
+                              ),
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -422,7 +416,7 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
                           ],
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
