@@ -1,5 +1,6 @@
 //Base Home Page (Bottom Navigation Bar)
 
+import 'package:istishara/Client/Categories/categorylistpage.dart';
 import 'package:istishara/Common%20FIles/chatPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:istishara/Client/Categories/categorySelection.dart';
@@ -37,7 +38,7 @@ class _BaseClientHomepageState extends State<BaseClientHomepage> {
       body: PageView(
         controller: _pageController,
         children: <Widget>[
-          CategorySelection(widget.user),
+          CategoryListPage(widget.user),
           Chat(widget.user),
           ClientQuestions(widget.user)
         ],
