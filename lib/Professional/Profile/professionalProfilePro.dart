@@ -488,7 +488,9 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
                             ),
                             // ignore: deprecated_member_use
                             OutlineButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+                                _showMyDialog();
+                              },
                               icon: Icon(Icons.edit, size: 18),
                               label: Text(
                                 "Edit Profile",
