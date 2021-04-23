@@ -10,7 +10,6 @@ export const sendToDevice = functions.firestore
     .document("messagePile/{messagePileId}")
     .onCreate(async (snapshot) => {
       const message = snapshot.data();
-      
       const querySnapshot = await db
           .collection("mesagePile")
           .doc(message.toUID)
@@ -26,6 +25,9 @@ export const sendToDevice = functions.firestore
           click_action: "FLUTTER_NOTIFICATION_CLICK",
         },
       };
+      console.log(message);
+      console.log(querySnapshot);
+      console.log(tokens);
       return fcm.sendToDevice(tokens, payload);
     });
 
