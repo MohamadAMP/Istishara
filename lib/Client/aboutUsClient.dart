@@ -1,14 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:istishara/Client/baseClientHomepage.dart';
 import 'package:istishara/Services/Authentication/auth.dart';
 import 'package:istishara/Services/Login/login.dart';
 
-import 'baseProfessionalHomepage.dart';
-
 // ignore: must_be_immutable
-class AboutUsPro extends StatelessWidget {
-  final type;
-  AboutUsPro(this.type);
+class AboutUs extends StatelessWidget {
   User user = FirebaseAuth.instance.currentUser;
 
   @override
@@ -38,8 +35,8 @@ class AboutUsPro extends StatelessWidget {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => BaseProfessionalHomepage(
-                                this.user, this.type)));
+                            builder: (context) =>
+                                BaseClientHomepage(this.user)));
                   },
                 ),
                 ListTile(
@@ -49,10 +46,8 @@ class AboutUsPro extends StatelessWidget {
                         fontSize: 18,
                       )),
                   onTap: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AboutUsPro(this.type)));
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => AboutUs()));
                   },
                 ),
                 ListTile(

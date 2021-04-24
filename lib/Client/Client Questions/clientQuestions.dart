@@ -2,13 +2,11 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:istishara/Services/Authentication/auth.dart';
 import 'package:istishara/Client/Client%20Questions/displayUserQuestions.dart';
 import 'package:istishara/Classes/post.dart';
 
 import 'package:istishara/Services/Database/database.dart';
 
-import '../../Services/Login/login.dart';
 
 class ClientQuestions extends StatefulWidget {
   final User user;

@@ -4,9 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:istishara/Client/Chat/displayChatContactsClient.dart';
 
-import '../Services/Authentication/auth.dart';
 import '../Professional/Chat/displayChatContactsPro.dart';
-import '../Services/Login/login.dart';
 import '../Services/Database/database.dart';
 import '../Services/Database/firestore.dart';
 
@@ -26,6 +24,7 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
   String name = '';
   List<dynamic> userInfo = [];
   AnimationController controller;
+  var link;
 
   void post(Function callBack) {
     this.setState(() {
@@ -45,13 +44,17 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
     List<dynamic> temp = [];
     await getUsersAnswered(widget.user.uid).then((uidPosts) {
       uidPosts.forEach((uidPost) async => {
+            link = await getProfilePic(uidPost[0]),
             if (chats.contains(uidPost[0]))
               {
                 //print("true"),
-                _usersAnswered.add(uidPost[0]),
-                name = await getNameByUid(uidPost[0]),
-                temp.add(name),
+                //_usersAnswered.add(uidPost[0]),
+                print(name),
+                temp.add(link[0]),
                 temp.add(uidPost[1]),
+                temp.add(uidPost[0]),
+                temp.add(link[1]),
+                print(temp),
                 _usersNamesPost.add(temp),
                 temp = [],
               }

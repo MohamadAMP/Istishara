@@ -40,45 +40,57 @@ class _MyHomePageState extends State<MyHomePagePro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Drawer(
-          child: ListView(
-            // Important: Remove any padding from the ListView.
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                child: Text('Istishara'),
-                decoration: BoxDecoration(
-                  color: Colors.orange,
+        drawer: Container(
+          width: 300,
+          child: Drawer(
+            child: ListView(
+              // Important: Remove any padding from the ListView.
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                DrawerHeader(
+                  child: Image.asset("assets/Istishara_logo.png"),
+                  decoration: BoxDecoration(
+                    color: Colors.orange,
+                  ),
                 ),
-              ),
-              ListTile(
-                title: Text('Home'),
-                onTap: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => BaseProfessionalHomepage(
-                              widget.user, widget.type)));
-                },
-              ),
-              ListTile(
-                title: Text('About Us'),
-                onTap: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AboutUsPro(widget.type)));
-                },
-              ),
-              ListTile(
-                title: Text('Log Out'),
-                onTap: () {
-                  signOut();
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
-                },
-              ),
-            ],
+                ListTile(
+                  leading: Icon(Icons.home,size: 30),
+                  title: Text('Home',style: TextStyle(
+                    fontSize: 18,
+                  )),
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BaseProfessionalHomepage(
+                                widget.user, widget.type)));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.info,size: 30),
+                  title: Text('About Us',style: TextStyle(
+                    fontSize: 18,
+                  )),
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AboutUsPro(widget.type)));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.logout,size: 30),
+                  title: Text('Log Out',style: TextStyle(
+                    fontSize: 18,
+                  )),
+                  onTap: () {
+                    signOut();
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  },
+                ),
+              ],
+            ),
           ),
         ),
         appBar: AppBar(title: Text('Istishara')),

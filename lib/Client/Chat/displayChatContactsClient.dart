@@ -36,43 +36,54 @@ class _DisplayChatContactsState extends State<DisplayChatContacts> {
   Widget build(BuildContext context) {
     //print(widget.usersAnswered);
     //print(widget.usersNamesPosts);
-    return ListView.builder(
-        itemCount: this.widget.usersNamesPosts.length,
-        // ignore: missing_return
-        itemBuilder: (context, index) {
-          var name = (this.widget.usersNamesPosts[index][0]);
-          var post = (this.widget.usersNamesPosts[index][1]);
-          var uidOther = this.widget.usersAnswered[index];
-          return Card(
-            shape: new RoundedRectangleBorder(
-                side: new BorderSide(color: Colors.grey[400], width: 2.0),
-                borderRadius: BorderRadius.circular(4.0)),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                    child: ListTile(
-                  title: Text(name),
-                  subtitle: Text("Question: " + post),
-                )),
-                Row(children: <Widget>[
-                  Padding(
-                      padding: EdgeInsets.all(20),
-                      child: TextButton(
-                        child: Text("Chat"),
-                        onPressed: () => {this.click(uidOther, name)},
-                        style: TextButton.styleFrom(
-                          primary: Colors.white,
-                          backgroundColor: Colors.orange,
-                          padding: EdgeInsets.all(5),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
-                          ),
-                        ),
-                      )),
-                ]),
-              ],
-            ),
-          );
-        });
+
+    return ListView.separated(
+      itemCount: this.widget.usersNamesPosts.length,
+      // ignore: missing_return
+      itemBuilder: (context, index) {
+        var name = (this.widget.usersNamesPosts[index][0]);
+        //print(name);
+        var post = (this.widget.usersNamesPosts[index][1]);
+        var uidOther = (this.widget.usersNamesPosts[index][2]);
+        var link = (this.widget.usersNamesPosts[index][3]);
+        var pic = Image.network(
+          link,
+        );
+        return InkWell(
+          onTap: () {
+            this.click(uidOther, name);
+          },
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image(
+                  image: pic.image,
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.fill,
+                ),
+              ),
+
+              //Image.asset("asset/blank_card.png",height: 30,width: 30),
+
+              Expanded(
+                  child: ListTile(
+                title: Text(name),
+                subtitle: Text("Question: " + post),
+              )),
+            ],
+          ),
+        );
+      },
+      separatorBuilder: (context, index) {
+        return Divider(
+          thickness: 1,
+          indent: 15,
+          endIndent: 15,
+          color: Colors.grey,
+        );
+      },
+    );
   }
 }

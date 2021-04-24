@@ -43,12 +43,11 @@ class ProfessionalProfileHelpState extends State<ProfessionalProfileHelp>
   }
 
   Future<void> getPhotoUrl() async {
-    var uid = widget.uid;
-    await getProfilePic(uid).then((link) {
+    await getProfilePic(widget.uid).then((link) {
       setState(() {
-        print(uid);
-        print(link);
-        this.link = link;
+        // print(uid);
+        // print(link);
+        this.link = link[1];
       });
     });
   }
@@ -91,7 +90,6 @@ class ProfessionalProfileHelpState extends State<ProfessionalProfileHelp>
         setState(() {});
       });
     controller.repeat(reverse: true);
-    controller.forward();
     super.initState();
     updateUserData();
     getUserRating();
@@ -102,7 +100,7 @@ class ProfessionalProfileHelpState extends State<ProfessionalProfileHelp>
 
   @override
   Widget build(BuildContext context) {
-    if (this.currentUserData.isEmpty) {
+    if (this.link == null) {
       return Scaffold(
           appBar: AppBar(
             title: Text("Profile"),
@@ -111,21 +109,22 @@ class ProfessionalProfileHelpState extends State<ProfessionalProfileHelp>
               child: CircularProgressIndicator(
             value: controller.value,
           )));
-    }
-    if (this.currentUserData.elementAt(1) == 'Client') {
-      return Scaffold(
-          body: Column(children: <Widget>[
-        Expanded(
-            child: ProfessionalProfileClient(this.userData, this.jobsDone,
-                this.rating, this.reviews, this.bioImage, this.link)),
-      ]));
     } else {
-      return Scaffold(
-          body: Column(children: <Widget>[
-        Expanded(
-            child: ProfessionalProfile(this.userData, this.jobsDone,
-                this.rating, this.reviews, this.bioImage)),
-      ]));
+      if (this.currentUserData.elementAt(1) == 'Client') {
+        return Scaffold(
+            body: Column(children: <Widget>[
+          Expanded(
+              child: ProfessionalProfileClient(this.userData, this.jobsDone,
+                  this.rating, this.reviews, this.bioImage, this.link)),
+        ]));
+      } else {
+        return Scaffold(
+            body: Column(children: <Widget>[
+          Expanded(
+              child: ProfessionalProfile(this.userData, this.jobsDone,
+                  this.rating, this.reviews, this.bioImage)),
+        ]));
+      }
     }
   }
 }

@@ -25,6 +25,8 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
   List<dynamic> userInfo = [];
   AnimationController controller;
 
+  List link;
+
   Future<void> getProUsersAnswered() async {
     await getUserChatsbyUid(widget.uid).then((chats) {
       setState(() {
@@ -37,16 +39,18 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
     List<dynamic> temp = [];
     await getUsersAnsweredPro(widget.uid).then((uidPosts) {
       uidPosts.forEach((uidPost) async => {
+            link = await getProfilePic(uidPost[0]),
             if (chats.contains(uidPost[0]))
               {
-                name = await getNameByUid(uidPost[0]),
                 //print(uidPost[0]),
                 //print(name),
-                post = uidPost[1],
-                temp.add(name),
-                temp.add(post),
+                print(name),
+                temp.add(link[0]),
+                temp.add(uidPost[1]),
+                temp.add(uidPost[0]),
+                temp.add(link[1]),
+                print(temp),
                 _usersNamesPost.add(temp),
-                _usersAnswered.add(uidPost[0]),
                 temp = [],
               }
           });
@@ -92,45 +96,54 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
         value: controller.value,
       ));
     } else {
-      return ListView.builder(
-          itemCount: this.usersNamesPost.length,
-          // ignore: missing_return
-          itemBuilder: (context, index) {
-            var name1 = (this.usersNamesPost[index][0]);
-            var post = (this.usersNamesPost[index][1]);
-            var uidOther = this.usersAnswered[index];
-            return Card(
-              shape: new RoundedRectangleBorder(
-                  side: new BorderSide(color: Colors.grey[400], width: 2.0),
-                  borderRadius: BorderRadius.circular(4.0)),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                      child: ListTile(
-                    title: Text(name1),
-                    subtitle: Text("Question: " + post),
-                  )),
-                  Row(children: <Widget>[
+      return ListView.separated(
+        itemCount: this.usersNamesPost.length,
+        // ignore: missing_return
+        itemBuilder: (context, index) {
+          var name = this.usersNamesPost[index][0];
+          //print(name);
+          var post = this.usersNamesPost[index][1];
+          var uidOther = this.usersNamesPost[index][2];
+          var link = this.usersNamesPost[index][3];
+          var pic = Image.network(
+            link,
+          );
+          return InkWell(
+              onTap: () {
+                this.click(uidOther, name);
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                child: Container(
+                  child: Row(children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.all(20),
-                        child: TextButton(
-                          child: Text("Chat"),
-                          onPressed: () => {this.click(uidOther, name1)},
-                          style: TextButton.styleFrom(
-                            primary: Colors.white,
-                            backgroundColor: Colors.orange,
-                            padding: EdgeInsets.all(5),
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5)),
-                            ),
-                          ),
-                        )),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image(
+                        image: pic.image,
+                        height: 60,
+                        width: 60,
+                        fit: BoxFit.fill,
+                      ),
+                      //Image.asset("asset/blank_card.png",height: 30,width: 30),
+                    ),
+                    Expanded(
+                        child: ListTile(
+                      title: Text(name),
+                      subtitle: Text("Question: " + post),
+                    )),
                   ]),
-                ],
-              ),
-            );
-          });
+                ),
+              ));
+        },
+        separatorBuilder: (context, index) {
+          return Divider(
+            thickness: 1,
+            indent: 15,
+            endIndent: 15,
+            color: Colors.grey,
+          );
+        },
+      );
     }
   }
 }

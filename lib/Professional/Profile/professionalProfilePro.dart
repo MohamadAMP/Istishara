@@ -1,13 +1,8 @@
 //Display Professional Profile (Professional View)
 
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:istishara/Services/Database/firestore.dart';
-
-import '../../Services/Authentication/auth.dart';
-import '../../Services/Login/login.dart';
 
 // ignore: must_be_immutable
 class ProfessionalProfile extends StatefulWidget {

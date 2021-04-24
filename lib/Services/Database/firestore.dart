@@ -200,8 +200,11 @@ Future<void> addOrUpdateProfilePic(String uid, String url) async {
   }
 }
 
-Future<String> getProfilePic(String uid) async {
+Future<List<dynamic>> getProfilePic(String uid) async {
+  var name = await getNameByUid(uid);
   var ref = await profilePics.doc(uid).get();
-  print(ref.data());
-  return ref.data()['link'];
+  var x = ref.data();
+  var result = x['link'];
+  var list = [name, result];
+  return list;
 }

@@ -2,7 +2,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:istishara/Services/Authentication/auth.dart';
 import 'package:istishara/Services/Database/firestore.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
@@ -25,6 +24,7 @@ class _ProfessionalProfileClientState extends State<ProfessionalProfileClient> {
   Set<dynamic> userData;
   User user = FirebaseAuth.instance.currentUser;
   var link;
+
   void _showRatingDialog() {
     final _dialog = RatingDialog(
       // your app's name?
@@ -68,11 +68,13 @@ class _ProfessionalProfileClientState extends State<ProfessionalProfileClient> {
     super.initState();
     this.userData = widget.userData.toSet();
     this.link = widget.link;
+    //pic = Image.network(widget.link, height: 120, width: 120);
   }
 
   @override
   Widget build(BuildContext context) {
-    var pic = Image.network(this.link, height: 120, width: 120);
+    //print(this.link);
+    var pic = Image.network(widget.link, height: 120, width: 120);
     this.userData = this.widget.userData.toSet();
     if (widget.reviews.isNotEmpty) {
       return Scaffold(

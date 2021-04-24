@@ -5,10 +5,10 @@ import 'package:istishara/Client/Categories/questionsECE.dart';
 import 'package:istishara/Client/Categories/questionsID.dart';
 import 'package:istishara/Client/Categories/questionsMech.dart';
 import 'package:istishara/Client/Categories/utils.dart';
-import 'package:istishara/Common%20FIles/aboutUsClient.dart';
 import 'package:istishara/Services/Authentication/auth.dart';
 import 'package:istishara/Services/Login/login.dart';
 import 'package:istishara/Widgets/categorycard.dart';
+import '../aboutUsClient.dart';
 import '../baseClientHomepage.dart';
 import 'questionsArchitecture.dart';
 import 'questionsCivil.dart';
@@ -17,48 +17,66 @@ import 'questionsCivil.dart';
 class CategoryListPage extends StatelessWidget {
   var user;
   CategoryListPage(this.user);
-
+  var image = Image.asset("assets/Istishara_logo.png");
   List<Categories> categories = Utils.getMockedCategories();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Drawer(
-          child: ListView(
-            // Important: Remove any padding from the ListView.
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                child: Text('Istishara'),
-                decoration: BoxDecoration(
-                  color: Colors.orange,
+        drawer: Container(
+          width: 300,
+          child: Drawer(
+            child: ListView(
+              // Important: Remove any padding from the ListView.
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                DrawerHeader(
+                  child: Image(
+                    image: Image.asset("assets/Istishara_logo.png").image,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.orange,
+                  ),
                 ),
-              ),
-              ListTile(
-                title: Text('Home'),
-                onTap: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => BaseClientHomepage(this.user)));
-                },
-              ),
-              ListTile(
-                title: Text('About Us'),
-                onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => AboutUs()));
-                },
-              ),
-              ListTile(
-                title: Text('Log Out'),
-                onTap: () {
-                  signOut();
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
-                },
-              ),
-            ],
+                ListTile(
+                  leading: Icon(Icons.home, size: 30),
+                  title: Text('Home',
+                      style: TextStyle(
+                        fontSize: 18,
+                      )),
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                BaseClientHomepage(this.user)));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.info, size: 30),
+                  title: Text('About Us',
+                      style: TextStyle(
+                        fontSize: 18,
+                      )),
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => AboutUs()));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.logout, size: 30),
+                  title: Text('Log Out',
+                      style: TextStyle(
+                        fontSize: 18,
+                      )),
+                  onTap: () {
+                    signOut();
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  },
+                ),
+              ],
+            ),
           ),
         ),
         appBar: AppBar(title: Text('Home')),
