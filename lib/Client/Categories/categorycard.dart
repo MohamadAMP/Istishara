@@ -22,7 +22,7 @@ class CategoryCard extends StatelessWidget {
             Positioned.fill(
                 child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.asset('assets/' + this.category.imagename + '.jpeg',
+              child: Image.asset('assets/' + this.category.imagename + '.jpg',
                   fit: BoxFit.cover),
             )),
             Positioned(

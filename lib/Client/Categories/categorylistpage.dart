@@ -27,7 +27,9 @@ class CategoryListPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 10, bottom: 10),
                 child: Text('Select a Category:',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black)),
+                    style: TextStyle(
+                      color: Colors.black,
+                    )),
               ),
               Expanded(
                   child: ListView.builder(

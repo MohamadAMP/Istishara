@@ -35,6 +35,7 @@ class _BaseClientHomepageState extends State<BaseClientHomepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: PageView(
         controller: _pageController,
         children: <Widget>[

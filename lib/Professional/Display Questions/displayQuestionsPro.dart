@@ -38,21 +38,7 @@ class _MyHomePageState extends State<MyHomePagePro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Istishara'), actions: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(child: Text('Log out')),
-              IconButton(
-                icon: Icon(Icons.logout),
-                onPressed: () async {
-                  signOut();
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
-                },
-              )
-            ],
-          ),
-        ]),
+        appBar: AppBar(title: Text('Istishara')),
         body: Column(children: <Widget>[
           Expanded(child: PostList(this.posts, widget.user, widget.type)),
         ]));

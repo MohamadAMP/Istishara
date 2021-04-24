@@ -94,6 +94,8 @@ class _RoleSelection extends State<RoleSelection> {
               children: <Widget>[
                 // ignore: deprecated_member_use
                 RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
                   padding: EdgeInsets.all(15),
                   onPressed: this.newClient,
                   child: Text('Client'),
@@ -105,6 +107,8 @@ class _RoleSelection extends State<RoleSelection> {
                 ),
                 // ignore: deprecated_member_use
                 RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
                   padding: EdgeInsets.all(15),
                   onPressed: this.newProfesional,
                   child: Text('Professional'),

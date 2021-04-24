@@ -113,40 +113,12 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
     } else {
       if (this.userInfo[1] == 'Client') {
         return Scaffold(
-            appBar: AppBar(title: Text('Messages'), actions: <Widget>[
-              Row(
-                children: <Widget>[
-                  Container(child: Text('Log out')),
-                  IconButton(
-                    icon: Icon(Icons.logout),
-                    onPressed: () async {
-                      signOut();
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => LoginPage()));
-                    },
-                  )
-                ],
-              ),
-            ]),
+            appBar: AppBar(title: Text('Messages')),
             body: DisplayChatContacts(this.usersNamesPost, this.usersAnswered,
                 this.widget.user.uid, this.chats));
       } else {
         return Scaffold(
-            appBar: AppBar(title: Text('Messages'), actions: <Widget>[
-              Row(
-                children: <Widget>[
-                  Container(child: Text('Log out')),
-                  IconButton(
-                    icon: Icon(Icons.logout),
-                    onPressed: () async {
-                      signOut();
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => LoginPage()));
-                    },
-                  )
-                ],
-              ),
-            ]),
+            appBar: AppBar(title: Text('Messages')),
             body: DisplayChatContactsPro(this.widget.user.uid));
       }
     }
