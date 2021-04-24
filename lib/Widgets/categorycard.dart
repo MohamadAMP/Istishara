@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:istishara/Client/Categories/category.dart';
+import 'package:istishara/Classes/category.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

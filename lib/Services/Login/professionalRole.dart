@@ -129,10 +129,8 @@ class _FormScreenState extends State<FormScreen> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                  _buildStudyfield(),
                   _buildWork(),
-                  _buildphonefield(),
-                  _buildURLfield(),
+
                   SizedBox(height: 35),
                   // ignore: deprecated_member_use
                   RaisedButton(

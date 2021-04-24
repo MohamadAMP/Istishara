@@ -1,9 +1,8 @@
 //Base Home Page (Bottom Navigation Bar)
 
-import 'package:istishara/Client/Categories/categorylistpage.dart';
+import 'package:istishara/Client/Categories/categorySelection.dart';
 import 'package:istishara/Common%20FIles/chatPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:istishara/Client/Categories/categorySelection.dart';
 import 'package:flutter/material.dart';
 import 'package:istishara/Client/Client%20Questions/clientQuestions.dart';
 

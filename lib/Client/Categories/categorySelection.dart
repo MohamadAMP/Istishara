@@ -1,242 +1,105 @@
-//Category Selection Screen (Architecture, Interior design, Civil...)
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:istishara/Client/Categories/questionsCivil.dart';
+import 'package:istishara/Classes/category.dart';
+import 'package:istishara/Client/Categories/questionsArchitecture.dart';
 import 'package:istishara/Client/Categories/questionsECE.dart';
 import 'package:istishara/Client/Categories/questionsID.dart';
 import 'package:istishara/Client/Categories/questionsMech.dart';
-
-import '../../Services/Authentication/auth.dart';
+import 'package:istishara/Client/Categories/utils.dart';
+import 'package:istishara/Widgets/categorycard.dart';
 import 'questionsArchitecture.dart';
-import '../../Services/Login/login.dart';
+import 'questionsCivil.dart';
 
-class CategorySelection extends StatefulWidget {
-  final User user;
+// ignore: must_be_immutable
+class CategoryListPage extends StatelessWidget {
+  var user;
+  CategoryListPage(this.user);
 
-  CategorySelection(this.user);
-
-  @override
-  _CategorySelection createState() => _CategorySelection();
-}
-
-class _CategorySelection extends State<CategorySelection> {
-  void architecture(String category) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => QuestionsArchitecture(widget.user)));
-  }
-
-  void interiorDesign(String category) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => QuestionsID(widget.user)));
-  }
-
-  void civil(String category) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => QuestionsCivil(widget.user)));
-  }
-
-  void mechanical(String category) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => QuestionsMech(widget.user)));
-  }
-
-  void ece(String category) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => QuestionsECE(widget.user)));
-  }
+  List<Categories> categories = Utils.getMockedCategories();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Home'), actions: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(child: Text('Log out')),
-              IconButton(
-                icon: Icon(Icons.logout),
-                onPressed: () async {
-                  signOut();
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
+        drawer: Drawer(),
+        appBar: AppBar(title: Text('Home')),
+        body: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
+                child: Text('Select a Category',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17)),
+              ),
+              Expanded(
+                  child: ListView.builder(
+                itemCount: categories.length,
+                itemBuilder: (BuildContext ctx, int index) {
+                  var category = categories[index];
+                  if (category.name == "Architecture") {
+                    return CategoryCard(
+                        category: categories[index],
+                        onCardClick: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      QuestionsArchitecture(this.user)));
+                        });
+                  }
+                  if (category.name == "Interior Design") {
+                    return CategoryCard(
+                        category: categories[index],
+                        onCardClick: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      QuestionsID(this.user)));
+                        });
+                  }
+                  if (category.name == "Electrical Engineering") {
+                    return CategoryCard(
+                        category: categories[index],
+                        onCardClick: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      QuestionsECE(this.user)));
+                        });
+                  }
+                  if (category.name == "Mechanical Engineering") {
+                    return CategoryCard(
+                        category: categories[index],
+                        onCardClick: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      QuestionsMech(this.user)));
+                        });
+                  }
+                  if (category.name == "Civil Engineering") {
+                    return CategoryCard(
+                        category: categories[index],
+                        onCardClick: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      QuestionsCivil(this.user)));
+                        });
+                  } else {
+                    return SizedBox(height: 0);
+                  }
                 },
-              )
+              ))
             ],
           ),
-        ]),
-        body: ListView(children: <Widget>[
-          Column(children: <Widget>[
-            SizedBox(height: 35),
-            Container(
-              width: 350,
-              padding: EdgeInsets.all(10),
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                onPressed: () => this.architecture('Architecture'),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                splashColor: Colors.grey[600],
-                borderSide: BorderSide(color: Colors.grey),
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      //Image(
-                      //  image: AssetImage('assets/blank_page.png'),
-                      //height: 35),
-                      Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: Text(
-                          'Architecture',
-                          style: TextStyle(color: Colors.grey, fontSize: 25),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 35),
-            Container(
-              width: 350,
-              padding: EdgeInsets.all(10),
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                onPressed: () => this.interiorDesign('Interior Design'),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                splashColor: Colors.grey[600],
-                borderSide: BorderSide(color: Colors.grey),
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      //Image(
-                      //  image: AssetImage('assets/blank_page.png'),
-                      //height: 35),
-                      Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: Text(
-                          'Interior Design',
-                          style: TextStyle(color: Colors.grey, fontSize: 25),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 35),
-            Container(
-              width: 350,
-              padding: EdgeInsets.all(10),
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                onPressed: () => this.civil('Civil Engineering'),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                splashColor: Colors.grey[600],
-                borderSide: BorderSide(color: Colors.grey),
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      //Image(
-                      //  image: AssetImage('assets/blank_page.png'),
-                      //height: 35),
-                      Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: Text(
-                          'Civil Engineering',
-                          style: TextStyle(color: Colors.grey, fontSize: 25),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 35),
-            Container(
-              width: 350,
-              padding: EdgeInsets.all(10),
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                onPressed: () => this.mechanical('Mechanical Engineering'),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                splashColor: Colors.grey[600],
-                borderSide: BorderSide(color: Colors.grey),
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      //Image(
-                      //  image: AssetImage('assets/blank_page.png'),
-                      //height: 35),
-                      Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: Text(
-                          'Mechanical Engineering',
-                          style: TextStyle(color: Colors.grey, fontSize: 25),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 35),
-            Container(
-              width: 350,
-              height: 100,
-              padding: EdgeInsets.all(10),
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                onPressed: () =>
-                    this.ece('Electrical & Communications Engineering'),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                splashColor: Colors.grey[600],
-                borderSide: BorderSide(color: Colors.grey),
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      //Image(
-                      //  image: AssetImage('assets/blank_page.png'),
-                      //height: 35),
-                      Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: FittedBox(
-                            fit: BoxFit.fitWidth,
-                            child: Center(
-                                child: Text(
-                                    'Electrical &\nCommunications Engineering',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 21,
-                                    ))),
-                          ))
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ])
-        ]));
+        ));
   }
 }
