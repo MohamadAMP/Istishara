@@ -120,21 +120,7 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
     } else {
       if (widget.reviews.isNotEmpty) {
         return Scaffold(
-            appBar: AppBar(title: Text('Profile'), actions: <Widget>[
-              Row(
-                children: <Widget>[
-                  Container(child: Text('Log out')),
-                  IconButton(
-                    icon: Icon(Icons.logout),
-                    onPressed: () async {
-                      signOut();
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => LoginPage()));
-                    },
-                  )
-                ],
-              ),
-            ]),
+            appBar: AppBar(title: Text('Profile')),
             body: SingleChildScrollView(
               child: Column(children: <Widget>[
                 Container(
@@ -349,21 +335,7 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
             ));
       } else {
         return Scaffold(
-            appBar: AppBar(title: Text('Profile'), actions: <Widget>[
-              Row(
-                children: <Widget>[
-                  Container(child: Text('Log out')),
-                  IconButton(
-                    icon: Icon(Icons.logout),
-                    onPressed: () async {
-                      signOut();
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => LoginPage()));
-                    },
-                  )
-                ],
-              ),
-            ]),
+            appBar: AppBar(title: Text('Profile')),
             body: SingleChildScrollView(
               child: Column(children: <Widget>[
                 Container(

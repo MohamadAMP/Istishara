@@ -1,45 +1,20 @@
-//Base Page for Displaying Questions
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:istishara/Professional/aboutUsPro.dart';
-import 'package:istishara/Services/Database/database.dart';
-import '../../Services/Authentication/auth.dart';
-import '../../Services/Login/login.dart';
-import '../../Classes/post.dart';
-import '../baseProfessionalHomepage.dart';
-import 'postListProfessional.dart';
+import 'package:istishara/Client/baseClientHomepage.dart';
+import 'package:istishara/Services/Authentication/auth.dart';
+import 'package:istishara/Services/Login/login.dart';
 
-// ignore: must_be_immutable
-class MyHomePagePro extends StatefulWidget {
-  String type;
-  final User user;
+import 'baseProfessionalHomepage.dart';
 
-  MyHomePagePro(this.user, this.type);
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePagePro> {
-  List<Post> posts = [];
-
-  void updatePosts() {
-    getAllPosts().then((posts) => {
-          this.setState(() {
-            this.posts = posts;
-          })
-        });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    updatePosts();
-  }
+class AboutUsPro extends StatelessWidget {
+  final type;
+  AboutUsPro(this.type);
+  User user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(title: Text('About Us')),
         drawer: Drawer(
           child: ListView(
             // Important: Remove any padding from the ListView.
@@ -57,8 +32,8 @@ class _MyHomePageState extends State<MyHomePagePro> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => BaseProfessionalHomepage(
-                              widget.user, widget.type)));
+                          builder: (context) =>
+                              BaseProfessionalHomepage(this.user, this.type)));
                 },
               ),
               ListTile(
@@ -67,7 +42,7 @@ class _MyHomePageState extends State<MyHomePagePro> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => AboutUsPro(widget.type)));
+                          builder: (context) => AboutUsPro(this.type)));
                 },
               ),
               ListTile(
@@ -81,9 +56,7 @@ class _MyHomePageState extends State<MyHomePagePro> {
             ],
           ),
         ),
-        appBar: AppBar(title: Text('Istishara')),
-        body: Column(children: <Widget>[
-          Expanded(child: PostList(this.posts, widget.user, widget.type)),
-        ]));
+        backgroundColor: Colors.white,
+        body: Container(child: Text("Fill in later")));
   }
 }

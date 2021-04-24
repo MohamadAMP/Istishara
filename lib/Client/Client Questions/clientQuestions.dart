@@ -38,21 +38,7 @@ class ClientQuestionsState extends State<ClientQuestions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Questions'), actions: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(child: Text('Log out')),
-              IconButton(
-                icon: Icon(Icons.logout),
-                onPressed: () async {
-                  signOut();
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
-                },
-              )
-            ],
-          ),
-        ]),
+        appBar: AppBar(title: Text('Questions')),
         body: Column(children: <Widget>[
           Expanded(child: DisplayUserQuestions(this.posts, widget.user)),
         ]));
