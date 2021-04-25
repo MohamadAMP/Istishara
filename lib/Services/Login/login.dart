@@ -48,19 +48,7 @@ class _BodyState extends State<Body> {
   void click() {
     signInWithGoogle().then((user) async => {
           this.user = user,
-          if (Platform.isIOS)
-            {
-              FirebaseMessaging.instance
-                  .requestPermission()
-                  .asStream()
-                  .listen((data) {
-                saveDeviceToken(user.uid);
-              }),
-            }
-          else
-            {
-              saveDeviceToken(user.uid),
-            },
+          saveDeviceToken(user.uid),
           await addOrUpdateProfilePic(user.uid, user.photoURL),
           snapshot = await dbRef
               .child('users/')
