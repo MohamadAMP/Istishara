@@ -118,11 +118,16 @@ class _DisplayChatContactsProState extends State<DisplayChatContactsPro>
                   child: Row(children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Image(
-                        image: pic.image,
+                      child: Container(
                         height: 60,
                         width: 60,
-                        fit: BoxFit.fill,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: pic.image
+                            )
+                        ),
                       ),
                       //Image.asset("asset/blank_card.png",height: 30,width: 30),
                     ),
