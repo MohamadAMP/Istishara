@@ -1,5 +1,7 @@
 //Base Login Page
 
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -46,6 +48,19 @@ class _BodyState extends State<Body> {
   void click() {
     signInWithGoogle().then((user) async => {
           this.user = user,
+          if (Platform.isIOS)
+            {
+              FirebaseMessaging.instance
+                  .requestPermission()
+                  .asStream()
+                  .listen((data) {
+                saveDeviceToken(user.uid);
+              }),
+            }
+          else
+            {
+              saveDeviceToken(user.uid),
+            },
           await addOrUpdateProfilePic(user.uid, user.photoURL),
           snapshot = await dbRef
               .child('users/')
