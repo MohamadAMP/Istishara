@@ -15,7 +15,7 @@ export const sendToDeviceChat = functions.firestore
           .doc(message.toUID)
           .get();
       const tok = querySnapshot.get("token");
-      const tokens = [tok];
+      const tokens = tok;
 
       const payload: admin.messaging.MessagingPayload = {
         notification: {
@@ -38,7 +38,7 @@ export const sendToDevicePost = functions.firestore
           .doc(post.uidAuthor)
           .get();
       const tok = querySnapshot.get("token");
-      const tokens = [tok];
+      const tokens = tok;
 
       const payload: admin.messaging.MessagingPayload = {
         notification: {

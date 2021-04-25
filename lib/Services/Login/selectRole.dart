@@ -29,15 +29,6 @@ class _RoleSelection extends State<RoleSelection> {
     var user = new UserData(
         widget.user.displayName, widget.user.email, widget.user.uid, 'Client');
 
-    user.setId(addUser(user));
-    if (Platform.isIOS) {
-      FirebaseMessaging.instance.requestPermission().asStream().listen((data) {
-        saveDeviceToken(user.uid);
-      });
-    } else {
-      saveDeviceToken(user.uid);
-    }
-
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
