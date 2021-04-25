@@ -62,16 +62,15 @@ class _PostListClientState extends State<PostListClient> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: this.widget.listItems.length,
+    List<Post> filteredListItems = this.widget.listItems.where((f)=>f.type == widget.type).toList();
+    return ListView.separated(
+      itemCount: filteredListItems.length,
       // ignore: missing_return
       itemBuilder: (context, index) {
-        var post = this.widget.listItems[index];
+        var post = filteredListItems[index];
         if (post.type == widget.type) {
-          return Card(
-              shape: new RoundedRectangleBorder(
-                  side: new BorderSide(color: Colors.grey[400], width: 2.0),
-                  borderRadius: BorderRadius.circular(4.0)),
+          return InkWell(
+              onTap: () => _offerhelpbuttonpressed(post),
               child: Row(children: <Widget>[
                 Expanded(
                     child: ListTile(
@@ -81,7 +80,7 @@ class _PostListClientState extends State<PostListClient> {
                 Row(
                   children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                         child: TextButton(
                           child: Text("Offers: " +
                               post.usersAnswered.length.toString()),
@@ -104,6 +103,14 @@ class _PostListClientState extends State<PostListClient> {
             height: 0,
           );
         }
+      },
+      separatorBuilder: (context, index) {
+        return Divider(
+          thickness: 1,
+          indent: 15,
+          endIndent: 15,
+          color: Colors.grey,
+        );
       },
     );
   }

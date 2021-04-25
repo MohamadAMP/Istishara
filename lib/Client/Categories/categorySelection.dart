@@ -44,6 +44,16 @@ class CategoryListPage extends StatelessWidget {
       );
     }
 
+    void _showAboutDialog() {
+      final _aboutdialog = AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          title: Text("About Us"),
+          content: Text(
+              "Istishara is a platform that was made to link professionals in a specific field to clients who need advice. The app is mostly a public forum of questions where clients post their questions in specific categories, then professionals select the questions they want to answer so they can chat with clients who posted them in a private chat."));
+      showDialog(context: context, builder: (context) => _aboutdialog);
+    }
+
     return Scaffold(
         drawer: Container(
           width: 300,
@@ -81,11 +91,11 @@ class CategoryListPage extends StatelessWidget {
                         fontSize: 18,
                       )),
                   onTap: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => AboutUs()));
+                    _showAboutDialog();
                   },
                 ),
                 ListTile(
+                  //////////////////
                   leading: Icon(Icons.star, size: 30),
                   title: Text('Rate Us',
                       style: TextStyle(
