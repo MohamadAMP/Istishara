@@ -6,28 +6,49 @@ admin.initializeApp();
 const db = admin.firestore();
 const fcm = admin.messaging();
 
-export const sendToDevice = functions.firestore
+export const sendToDeviceChat = functions.firestore
     .document("messagePile/{messagePileId}")
     .onCreate(async (snapshot) => {
       const message = snapshot.data();
       const querySnapshot = await db
-          .collection("mesagePile")
-          .doc(message.toUID)
           .collection("tokens")
+          .doc(message.toUID)
           .get();
-
-      const tokens = querySnapshot.docs.map((snap) => snap.id);
+      const tok = querySnapshot.get("token");
+      const tokens = [tok];
 
       const payload: admin.messaging.MessagingPayload = {
         notification: {
-          title: "New Message From ${message.nameFrom}",
-          body: "${message.content}",
+          title: "New message from " + message.fromName,
+          body: message.content,
+        },
+        data: {
           click_action: "FLUTTER_NOTIFICATION_CLICK",
         },
       };
-      console.log(message);
-      console.log(querySnapshot);
-      console.log(tokens);
+      return fcm.sendToDevice(tokens, payload);
+    });
+
+export const sendToDevicePost = functions.firestore
+    .document("postsAnswered/{postsAnsweredId}")
+    .onCreate(async (snapshot) => {
+      const post = snapshot.data();
+      const querySnapshot = await db
+          .collection("tokens")
+          .doc(post.uidAuthor)
+          .get();
+      const tok = querySnapshot.get("token");
+      const tokens = [tok];
+
+      const payload: admin.messaging.MessagingPayload = {
+        notification: {
+          title: "Help offered form: " + post.nameAnswered,
+          body: post.content,
+        },
+        data: {
+          click_action: "FLUTTER_NOTIFICATION_CLICK",
+        },
+      };
       return fcm.sendToDevice(tokens, payload);
     });
 

@@ -1,8 +1,12 @@
 //Post Class
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:istishara/Services/Database/database.dart';
+
+CollectionReference postAnswers =
+    FirebaseFirestore.instance.collection('postsAnswered');
 
 class Post {
   String uid;
@@ -15,11 +19,19 @@ class Post {
 
   Post(this.body, this.author, this.type, this.uid, this.createdAt);
 
-  void answerPost(User user) {
+  Future<void> answerPost(User user) async {
     if (this.usersAnswered.contains(user.uid)) {
       this.usersAnswered.remove(user.uid);
     } else {
       this.usersAnswered.add(user.uid);
+      var name = await getNameByUid(user.uid);
+      postAnswers.add({
+        'content': this.body,
+        'author': this.author,
+        'uidAuthor': this.uid,
+        'uidAnswered': user.uid,
+        'nameAnswered': name
+      });
     }
     this.update();
   }

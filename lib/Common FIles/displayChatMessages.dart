@@ -24,13 +24,15 @@ class _DisplayMessagesState extends State<DisplayMessages> {
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
+      reverse: true,
       scrollDirection: Axis.vertical,
       itemCount: this.widget.messages.length,
       itemBuilder: (context, index) {
-        var text = widget.messages[index]['content'];
-        var time = widget.messages[index]['createdAt'].toDate();
+        List<dynamic> l = widget.messages.reversed.toList();
+        var text = l[index]['content'];
+        var time = l[index]['createdAt'].toDate();
         var dateFormatted = DateFormat.yMd().add_jm().format(time).toString();
-        var uid = widget.messages[index]['uidUser'];
+        var uid = l[index]['uidUser'];
         Message msg = new Message(text: text, time: dateFormatted);
         if (uid == user.uid) {
           return Align(
