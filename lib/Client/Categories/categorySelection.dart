@@ -48,9 +48,23 @@ class CategoryListPage extends StatelessWidget {
       final _aboutdialog = AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
-          title: Text("About Us"),
+          title: Row(
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Text("About Us"),
+                SizedBox(
+                  width: 130,
+                ),
+                IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    })
+              ]),
           content: Text(
-              "Istishara is a platform that was made to link professionals in a specific field to clients who need advice. The app is mostly a public forum of questions where clients post their questions in specific categories, then professionals select the questions they want to answer so they can chat with clients who posted them in a private chat."));
+            "Istishara is a platform that was made to link professionals in a specific field to clients who need advice. The app is mostly a public forum of questions where clients post their questions in specific categories, then professionals select the questions they want to answer so they can chat with clients who posted them in a private chat.",
+            textAlign: TextAlign.center,
+          ));
       showDialog(context: context, builder: (context) => _aboutdialog);
     }
 

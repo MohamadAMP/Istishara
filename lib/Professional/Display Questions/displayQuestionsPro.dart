@@ -45,6 +45,30 @@ class _MyHomePageState extends State<MyHomePagePro> {
     );
   }
 
+  void _showAboutDialog() {
+    final _aboutdialog = AlertDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        title: Row(
+            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Text("About Us"),
+              SizedBox(
+                width: 130,
+              ),
+              IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  })
+            ]),
+        content: Text(
+          "Istishara is a platform that was made to link professionals in a specific field to clients who need advice. The app is mostly a public forum of questions where clients post their questions in specific categories, then professionals select the questions they want to answer so they can chat with clients who posted them in a private chat.",
+          textAlign: TextAlign.center,
+        ));
+    showDialog(context: context, builder: (context) => _aboutdialog);
+  }
+
   void updatePosts() {
     getAllPosts().then((posts) => {
           this.setState(() {
@@ -90,18 +114,14 @@ class _MyHomePageState extends State<MyHomePagePro> {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.info, size: 30),
-                  title: Text('About Us',
-                      style: TextStyle(
-                        fontSize: 18,
-                      )),
-                  onTap: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AboutUsPro(widget.type)));
-                  },
-                ),
+                    leading: Icon(Icons.info, size: 30),
+                    title: Text('About Us',
+                        style: TextStyle(
+                          fontSize: 18,
+                        )),
+                    onTap: () {
+                      _showAboutDialog();
+                    }),
                 ListTile(
                   leading: Icon(Icons.star, size: 30),
                   title: Text('Rate Us',
