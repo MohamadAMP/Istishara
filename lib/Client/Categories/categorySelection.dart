@@ -6,8 +6,10 @@ import 'package:istishara/Client/Categories/questionsID.dart';
 import 'package:istishara/Client/Categories/questionsMech.dart';
 import 'package:istishara/Client/Categories/utils.dart';
 import 'package:istishara/Services/Authentication/auth.dart';
+import 'package:istishara/Services/Database/firestore.dart';
 import 'package:istishara/Services/Login/login.dart';
 import 'package:istishara/Widgets/categorycard.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 import '../aboutUsClient.dart';
 import '../baseClientHomepage.dart';
 import 'questionsArchitecture.dart';
@@ -22,6 +24,26 @@ class CategoryListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void _showRatingDialog() {
+      final _dialog = RatingDialog(
+        // your app's name?
+        title: 'Istishara',
+        // encourage your user to leave a high rating?
+        message: 'Tap a star to set your rating.',
+        // your app's logo?
+        image: Image.asset("assets/istisharaphoto.jpeg"),
+        submitButton: 'Submit',
+        onSubmitted: (response) {
+          addAppRating(this.user.uid, response.comment, response.rating);
+        },
+      );
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (context) => _dialog,
+      );
+    }
+
     return Scaffold(
         drawer: Container(
           width: 300,
@@ -61,6 +83,16 @@ class CategoryListPage extends StatelessWidget {
                   onTap: () {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) => AboutUs()));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.star, size: 30),
+                  title: Text('Rate Us',
+                      style: TextStyle(
+                        fontSize: 18,
+                      )),
+                  onTap: () {
+                    _showRatingDialog();
                   },
                 ),
                 ListTile(

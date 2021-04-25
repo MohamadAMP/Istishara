@@ -15,6 +15,8 @@ CollectionReference messagePile =
 CollectionReference proData = FirebaseFirestore.instance.collection('proData');
 CollectionReference profilePics =
     FirebaseFirestore.instance.collection('profilePics');
+CollectionReference appRatings =
+    FirebaseFirestore.instance.collection('appRatings');
 
 Future<void> addChat(String chatID) {
   return chats.doc(chatID).set({'modifiedAt': DateTime.now(), 'messages': []});
@@ -207,4 +209,20 @@ Future<List<dynamic>> getProfilePic(String uid) async {
   var result = x['link'];
   var list = [name, result];
   return list;
+}
+
+Future<void> addAppRating(
+  String uid,
+  String comment,
+  int starsCount,
+) async {
+  var name = await getNameByUid(uid);
+  var data = {
+    'comment': comment,
+    'stars': starsCount,
+    'uid': uid,
+  };
+  appRatings
+      .doc(uid)
+      .set({'uid': uid, 'comment': comment, 'stars': starsCount, 'name': name});
 }

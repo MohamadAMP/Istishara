@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:istishara/Professional/aboutUsPro.dart';
 import 'package:istishara/Services/Database/database.dart';
+import 'package:istishara/Services/Database/firestore.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 import '../../Services/Authentication/auth.dart';
 import '../../Services/Login/login.dart';
 import '../../Classes/post.dart';
@@ -22,6 +24,26 @@ class MyHomePagePro extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePagePro> {
   List<Post> posts = [];
+
+  void _showRatingDialog() {
+    final _dialog = RatingDialog(
+      // your app's name?
+      title: 'Istishara',
+      // encourage your user to leave a high rating?
+      message: 'Tap a star to set your rating.',
+      // your app's logo?
+      image: Image.asset("assets/istisharaphoto.jpeg"),
+      submitButton: 'Submit',
+      onSubmitted: (response) {
+        addAppRating(widget.user.uid, response.comment, response.rating);
+      },
+    );
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) => _dialog,
+    );
+  }
 
   void updatePosts() {
     getAllPosts().then((posts) => {
@@ -54,10 +76,11 @@ class _MyHomePageState extends State<MyHomePagePro> {
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.home,size: 30),
-                  title: Text('Home',style: TextStyle(
-                    fontSize: 18,
-                  )),
+                  leading: Icon(Icons.home, size: 30),
+                  title: Text('Home',
+                      style: TextStyle(
+                        fontSize: 18,
+                      )),
                   onTap: () {
                     Navigator.pushReplacement(
                         context,
@@ -67,10 +90,11 @@ class _MyHomePageState extends State<MyHomePagePro> {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.info,size: 30),
-                  title: Text('About Us',style: TextStyle(
-                    fontSize: 18,
-                  )),
+                  leading: Icon(Icons.info, size: 30),
+                  title: Text('About Us',
+                      style: TextStyle(
+                        fontSize: 18,
+                      )),
                   onTap: () {
                     Navigator.pushReplacement(
                         context,
@@ -79,10 +103,21 @@ class _MyHomePageState extends State<MyHomePagePro> {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.logout,size: 30),
-                  title: Text('Log Out',style: TextStyle(
-                    fontSize: 18,
-                  )),
+                  leading: Icon(Icons.star, size: 30),
+                  title: Text('Rate Us',
+                      style: TextStyle(
+                        fontSize: 18,
+                      )),
+                  onTap: () {
+                    _showRatingDialog();
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.logout, size: 30),
+                  title: Text('Log Out',
+                      style: TextStyle(
+                        fontSize: 18,
+                      )),
                   onTap: () {
                     signOut();
                     Navigator.pushReplacement(context,
