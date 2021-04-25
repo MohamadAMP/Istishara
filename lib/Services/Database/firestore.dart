@@ -175,9 +175,16 @@ saveDeviceToken(String uid) async {
   User user = FirebaseAuth.instance.currentUser;
   FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
   String token = await firebaseMessaging.getToken();
+  var doc = await tokens.doc(uid).get();
 
   if (token != null) {
-    tokens.doc(uid).set({'token': token});
+    if (!doc.exists) {
+      tokens.doc(uid).set({'token': []});
+    }
+    var temp = [token];
+    var ref = tokens.doc(uid);
+    ref.update({'token': FieldValue.arrayUnion(temp)});
+    temp = [];
   }
 }
 
