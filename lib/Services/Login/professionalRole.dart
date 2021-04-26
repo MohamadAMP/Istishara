@@ -32,13 +32,9 @@ class _FormScreenState extends State<FormScreen> {
         widget.user.uid, _fieldofWork);
 
     user.setId(addUser(user));
-    if (Platform.isIOS) {
-      FirebaseMessaging.instance.requestPermission().asStream().listen((data) {
-        saveDeviceToken(user.uid);
-      });
-    } else {
-      saveDeviceToken(user.uid);
-    }
+    
+    saveDeviceToken(user.uid);
+    
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
