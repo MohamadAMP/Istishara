@@ -108,29 +108,21 @@ class _ProfessionalProfileClientState extends State<ProfessionalProfileClient> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Flexible(
-                            child: Container(
-                              child: Text(
+                          Text(
+                            (this.userData.length > 0
+                                    ? this.userData.elementAt(0)
+                                    : '') +
+                                '\n' +
                                 (this.userData.length > 0
-                                        ? this.userData.elementAt(0)
-                                        : '') +
-                                    '\n' +
-                                    (this.userData.length > 0
-                                        ? (this.userData.elementAt(1) ==
-                                                "Electrical & Communications Engineering"
-                                            ? "Electrical Engineering"
-                                            : '')
-                                        : ''),
+                                    ? this.userData.elementAt(1)
+                                    : ''),
 
-                                //you might have to add another text widget depending on how you retrieve it
-                                overflow: TextOverflow.ellipsis,
-                                softWrap: false,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                            //you might have to add another text widget depending on how you retrieve it
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
                             ),
                           )
                         ],

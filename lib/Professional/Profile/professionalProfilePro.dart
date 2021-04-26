@@ -117,226 +117,213 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
         return Scaffold(
             appBar: AppBar(title: Text('Profile')),
             body: SingleChildScrollView(
-              child: Column(children: <Widget>[
-                Container(
+                child: Column(children: <Widget>[
+              Container(
                   color: Colors.orange[400],
                   height: 230,
                   child: Padding(
                     padding: EdgeInsets.only(left: 0.0, right: 30.0, top: 30.0),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 40, 0),
-                              child: Container(
-                                height: 120,
-                                width: 120,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: pic.image != null
-                                            ? pic.image
-                                            : Icon(Icons.account_circle,
-                                                size: 120))),
-                              ),
+                    child: Column(children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(20, 0, 40, 0),
+                            child: Container(
+                              height: 120,
+                              width: 120,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: pic.image != null
+                                          ? pic.image
+                                          : Icon(Icons.account_circle,
+                                              size: 120))),
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Flexible(
-                                  child: Container(
-                                    child: Text(
-                                      (this.userData.length > 0
-                                              ? this.userData.elementAt(0)
-                                              : '') +
-                                          '\n' +
-                                          (this.userData.length > 0
-                                              ? (this.userData.elementAt(1) ==
-                                                      "Electrical & Communications Engineering"
-                                                  ? "Electrical Engineering"
-                                                  : '')
-                                              : ''),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                (this.userData.length > 0
+                                        ? this.userData.elementAt(0)
+                                        : '') +
+                                    '\n' +
+                                    (this.userData.length > 0
+                                        ? this.userData.elementAt(1)
+                                        : ''),
 
-                                      //you might have to add another text widget depending on how you retrieve it
-                                      overflow: TextOverflow.ellipsis,
-                                      softWrap: false,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                )
                                 //you might have to add another text widget depending on how you retrieve it
-                              ],
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(11.0),
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        "Rating",
-                                        style: TextStyle(
-                                            //add rating in the future
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        this.widget.rating.isNaN
-                                            ? '0.00'
-                                            : this
-                                                .widget
-                                                .rating
-                                                .toStringAsFixed(2),
-                                        style: TextStyle(
-                                            //add rating in the future
-                                            color: Colors.white,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(11.0),
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        "Jobs Done",
-                                        style: TextStyle(
-                                            //add the number of questions answered in the future
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        this.widget.jobsDone.toString(),
-                                        style: TextStyle(
-                                            //add the number of questions answered in the future
-                                            color: Colors.white,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                            // ignore: deprecated_member_use
-                            OutlineButton.icon(
-                              onPressed: () {
-                                _showMyDialog();
-                              },
-                              icon: Icon(Icons.edit, size: 18),
-                              label: Text(
-                                "Edit Profile",
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    color: Colors.grey[300], fontSize: 16),
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(11.0),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "Rating",
+                                          style: TextStyle(
+                                              //add rating in the future
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          this.widget.rating.isNaN
+                                              ? '0.00'
+                                              : this
+                                                  .widget
+                                                  .rating
+                                                  .toStringAsFixed(2),
+                                          style: TextStyle(
+                                              //add rating in the future
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(11.0),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "Jobs Done",
+                                          style: TextStyle(
+                                              //add the number of questions answered in the future
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          this.widget.jobsDone.toString(),
+                                          style: TextStyle(
+                                              //add the number of questions answered in the future
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                              // ignore: deprecated_member_use
+                              OutlineButton.icon(
+                                onPressed: () {
+                                  _showMyDialog();
+                                },
+                                icon: Icon(Icons.edit, size: 18),
+                                label: Text(
+                                  "Edit Profile",
+                                  style: TextStyle(
+                                      color: Colors.grey[300], fontSize: 16),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.only(left: 32.0, right: 32.0),
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              "About Me",
+                              style: TextStyle(
+                                color: Colors.grey[800],
+                                fontWeight: FontWeight.w700,
+                                fontSize: 18,
+                              ),
+                            ),
+                            SizedBox(height: 10.0),
+                            Text(
+                              this.widget.bioImage.isNotEmpty
+                                  ? this.widget.bioImage[0]
+                                  : "You have not entered your bio yet",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
                               ),
                             ),
                           ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 32.0, right: 32.0),
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        "About Me",
-                        style: TextStyle(
-                          color: Colors.grey[800],
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18,
                         ),
                       ),
-                      SizedBox(height: 10.0),
-                      Text(
-                        this.widget.bioImage.isNotEmpty
-                            ? this.widget.bioImage[0]
-                            : "You have not entered your bio yet",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                        ),
+                      SizedBox(
+                        height: 25,
                       ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(left: 32.0, right: 32.0),
-                    child: Center(
-                        child: Text(
-                      "Reviews:",
-                      style: TextStyle(
-                        color: Colors.grey[800],
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18,
-                      ),
-                    ))),
-                Container(
-                    height: 237,
-                    child: ListView.builder(
-                      itemCount: this.widget.reviews.length,
-                      // ignore: missing_return
-                      itemBuilder: (context, index) {
-                        var review = this.widget.reviews[index];
-                        if (review[2] != "") {
-                          return Card(
-                            shape: new RoundedRectangleBorder(
-                                side: new BorderSide(
-                                    color: Colors.grey[400], width: 2.0),
-                                borderRadius: BorderRadius.circular(4.0)),
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                    child: ListTile(
-                                  title: Text(review[2].toString()),
-                                  subtitle: Text(review[0].toString() +
-                                      " - Rating: " +
-                                      review[1].toString() +
-                                      "/5"),
-                                )),
-                              ],
+                      Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.only(left: 32.0, right: 32.0),
+                          child: Center(
+                              child: Text(
+                            "Reviews:",
+                            style: TextStyle(
+                              color: Colors.grey[800],
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18,
                             ),
-                          );
-                        } else {
-                          return SizedBox(
-                            height: 0,
-                          );
-                        }
-                      },
-                    ))
-              ]),
-            ));
+                          ))),
+                      Container(
+                          height: 237,
+                          child: ListView.builder(
+                            itemCount: this.widget.reviews.length,
+                            // ignore: missing_return
+                            itemBuilder: (context, index) {
+                              var review = this.widget.reviews[index];
+                              if (review[2] != "") {
+                                return Card(
+                                  shape: new RoundedRectangleBorder(
+                                      side: new BorderSide(
+                                          color: Colors.grey[400], width: 2.0),
+                                      borderRadius: BorderRadius.circular(4.0)),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                          child: ListTile(
+                                        title: Text(review[2].toString()),
+                                        subtitle: Text(review[0].toString() +
+                                            " - Rating: " +
+                                            review[1].toString() +
+                                            "/5"),
+                                      )),
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                return SizedBox(
+                                  height: 0,
+                                );
+                              }
+                            },
+                          ))
+                    ]),
+                  ))
+            ])));
       } else {
         return Scaffold(
             appBar: AppBar(title: Text('Profile')),
