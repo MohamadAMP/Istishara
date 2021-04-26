@@ -117,137 +117,137 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
         return Scaffold(
             appBar: AppBar(title: Text('Profile')),
             body: SingleChildScrollView(
-                child: Column(children: <Widget>[
-              Container(
+              child: Column(children: <Widget>[
+                Container(
                   color: Colors.orange[400],
                   height: 230,
                   child: Padding(
                     padding: EdgeInsets.only(left: 0.0, right: 30.0, top: 30.0),
-                    child: Column(children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 0, 40, 0),
-                            child: Container(
-                              height: 120,
-                              width: 120,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: pic.image != null
-                                          ? pic.image
-                                          : Icon(Icons.account_circle,
-                                              size: 120))),
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 40, 0),
+                              child: Container(
+                                height: 120,
+                                width: 120,
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: pic.image != null
+                                            ? pic.image
+                                            : Icon(Icons.account_circle, size: 120))),
+                              ),
                             ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                (this.userData.length > 0
-                                        ? this.userData.elementAt(0)
-                                        : '') +
-                                    '\n' +
-                                    (this.userData.length > 0
-                                        ? this.userData.elementAt(1)
-                                        : ''),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  (this.userData.length > 0
+                                      ? this.userData.elementAt(0)
+                                      : '') +
+                                      '\n' +
+                                      (this.userData.length > 0
+                                          ? this.userData.elementAt(1)
+                                          : ''),
 
-                                //you might have to add another text widget depending on how you retrieve it
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Column(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(11.0),
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          "Rating",
-                                          style: TextStyle(
-                                              //add rating in the future
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          this.widget.rating.isNaN
-                                              ? '0.00'
-                                              : this
-                                                  .widget
-                                                  .rating
-                                                  .toStringAsFixed(2),
-                                          style: TextStyle(
-                                              //add rating in the future
-                                              color: Colors.white,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Column(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(11.0),
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          "Jobs Done",
-                                          style: TextStyle(
-                                              //add the number of questions answered in the future
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          this.widget.jobsDone.toString(),
-                                          style: TextStyle(
-                                              //add the number of questions answered in the future
-                                              color: Colors.white,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                              // ignore: deprecated_member_use
-                              OutlineButton.icon(
-                                onPressed: () {
-                                  _showMyDialog();
-                                },
-                                icon: Icon(Icons.edit, size: 18),
-                                label: Text(
-                                  "Edit Profile",
+                                  //you might have to add another text widget depending on how you retrieve it
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      color: Colors.grey[300], fontSize: 16),
-                                ),
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(11.0),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Rating",
+                                        style: TextStyle(
+                                          //add rating in the future
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        this.widget.rating.isNaN
+                                            ? '0.00'
+                                            : this.widget.rating.toStringAsFixed(2),
+                                        style: TextStyle(
+                                          //add rating in the future
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(11.0),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Jobs Done",
+                                        style: TextStyle(
+                                          //add the number of questions answered in the future
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        this.widget.jobsDone.toString(),
+                                        style: TextStyle(
+                                          //add the number of questions answered in the future
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            // ignore: deprecated_member_use
+                            OutlineButton.icon(
+                              onPressed: () {
+                                _showMyDialog();
+                              },
+                              icon: Icon(Icons.edit, size: 18),
+                              label: Text(
+                                "Edit Profile",
+                                style: TextStyle(
+                                    color: Colors.grey[300], fontSize: 16),
                               ),
-                            ],
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      Container(
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                        SizedBox(height: 16,),
+                        Container(
                         width: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.only(left: 32.0, right: 32.0),
                         child: Column(
@@ -273,10 +273,8 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: 25,
-                      ),
-                      Container(
+                        SizedBox(height: 25,),
+                        Container(
                           width: MediaQuery.of(context).size.width,
                           padding: EdgeInsets.only(left: 32.0, right: 32.0),
                           child: Center(
@@ -322,8 +320,7 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
                             },
                           ))
                     ]),
-                  ))
-            ])));
+                  ));
       } else {
         return Scaffold(
             appBar: AppBar(title: Text('Profile')),
@@ -339,7 +336,7 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
                         Row(
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 40, 0),
+                              padding: const EdgeInsets.fromLTRB(100, 0, 40, 0),
                               child: Container(
                                 height: 120,
                                 width: 120,

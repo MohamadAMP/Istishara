@@ -416,10 +416,10 @@ class _ProfessionalProfileClientState extends State<ProfessionalProfileClient> {
               ),
             ),
           ),
-          SizedBox(
+              SizedBox(
             height: 16,
           ),
-          Container(
+              Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.only(left: 32.0, right: 32.0),
             child: Column(
