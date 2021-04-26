@@ -61,11 +61,12 @@ class _DisplayUserQuestionsState extends State<DisplayUserQuestions> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: this.widget.listItems.length,
+    List<Post> filteredListItems = this.widget.listItems.where((f)=>f.uid == widget.user.uid).toList();
+    return ListView.separated(
+      itemCount: filteredListItems.length,
       // ignore: missing_return
       itemBuilder: (context, index) {
-        var post = this.widget.listItems[index];
+        var post = filteredListItems[index];
         if (post.uid == widget.user.uid) {
           return Dismissible(
               direction: DismissDirection.endToStart,
@@ -103,10 +104,8 @@ class _DisplayUserQuestionsState extends State<DisplayUserQuestions> {
                   Scaffold.of(context).showSnackBar(snackBar);
                 });
               },
-              child: Card(
-                shape: new RoundedRectangleBorder(
-                    side: new BorderSide(color: Colors.grey[400], width: 2.0),
-                    borderRadius: BorderRadius.circular(4.0)),
+              child: InkWell(
+                onTap: () => _offerhelpbuttonpressed(post),
                 child: Row(
                   children: <Widget>[
                     Expanded(
@@ -140,6 +139,14 @@ class _DisplayUserQuestionsState extends State<DisplayUserQuestions> {
             height: 0,
           );
         }
+      },
+      separatorBuilder: (context, index) {
+        return Divider(
+          thickness: 1,
+          indent: 15,
+          endIndent: 15,
+          color: Colors.grey,
+        );
       },
     );
   }
