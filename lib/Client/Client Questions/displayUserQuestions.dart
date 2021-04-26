@@ -10,7 +10,7 @@ import 'offeredHelp.dart';
 // ignore: must_be_immutable
 class DisplayUserQuestions extends StatefulWidget {
   final User user;
-  final List<Post> listItems;
+  List<Post> listItems;
 
   DisplayUserQuestions(this.listItems, this.user);
 
@@ -61,12 +61,13 @@ class _DisplayUserQuestionsState extends State<DisplayUserQuestions> {
 
   @override
   Widget build(BuildContext context) {
-    List<Post> filteredListItems = this.widget.listItems.where((f)=>f.uid == widget.user.uid).toList();
+    this.widget.listItems =
+        this.widget.listItems.where((f) => f.uid == widget.user.uid).toList();
     return ListView.separated(
-      itemCount: filteredListItems.length,
+      itemCount: this.widget.listItems.length,
       // ignore: missing_return
       itemBuilder: (context, index) {
-        var post = filteredListItems[index];
+        var post = this.widget.listItems[index];
         if (post.uid == widget.user.uid) {
           return Dismissible(
               direction: DismissDirection.endToStart,
@@ -87,6 +88,7 @@ class _DisplayUserQuestionsState extends State<DisplayUserQuestions> {
               ),
               onDismissed: (DismissDirection direction) {
                 setState(() {
+                  //filteredListItems.removeAt(index);
                   this.widget.listItems.removeAt(index);
                   deletePost(post.createdAt);
                   final snackBar = new SnackBar(
