@@ -145,23 +145,32 @@ class _ProfessionalProfileState extends State<ProfessionalProfile>
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(
-                                  (this.userData.length > 0
-                                          ? this.userData.elementAt(0)
-                                          : '') +
-                                      '\n' +
+                                Flexible(
+                                  child: Container(
+                                    child: Text(
                                       (this.userData.length > 0
-                                          ? this.userData.elementAt(1)
-                                          : ''),
+                                              ? this.userData.elementAt(0)
+                                              : '') +
+                                          '\n' +
+                                          (this.userData.length > 0
+                                              ? (this.userData.elementAt(1) ==
+                                                      "Electrical & Communications Engineering"
+                                                  ? "Electrical Engineering"
+                                                  : '')
+                                              : ''),
 
-                                  //you might have to add another text widget depending on how you retrieve it
-                                  overflow: TextOverflow.visible,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                      //you might have to add another text widget depending on how you retrieve it
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: false,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
                                 )
+                                //you might have to add another text widget depending on how you retrieve it
                               ],
                             )
                           ],

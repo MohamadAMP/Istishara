@@ -32,9 +32,9 @@ class _FormScreenState extends State<FormScreen> {
         widget.user.uid, _fieldofWork);
 
     user.setId(addUser(user));
-    
+
     saveDeviceToken(user.uid);
-    
+
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -123,8 +123,14 @@ class _FormScreenState extends State<FormScreen> {
             margin: EdgeInsets.all(24),
             child: Form(
                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    //mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                  Center(
+                    child: Image.asset("assets/professionalform.png"),
+                  ),
+                  SizedBox(
+                    height: 35,
+                  ),
                   _buildWork(),
 
                   SizedBox(height: 35),
