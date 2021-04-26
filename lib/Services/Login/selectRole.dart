@@ -28,7 +28,7 @@ class _RoleSelection extends State<RoleSelection> {
   void newClient() {
     var user = new UserData(
         widget.user.displayName, widget.user.email, widget.user.uid, 'Client');
-
+    user.setId(addUser(user));
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
