@@ -42,7 +42,7 @@ export const sendToDevicePost = functions.firestore
 
       const payload: admin.messaging.MessagingPayload = {
         notification: {
-          title: "Help offered form: " + post.nameAnswered,
+          title: "Help offered from: " + post.nameAnswered,
           body: post.content,
         },
         data: {

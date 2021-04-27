@@ -61,7 +61,7 @@ class _FormScreenState extends State<FormScreen> {
         'Architecture',
         'Interior Design',
         'Civil Engineering',
-        'Mechancal Engineering',
+        'Mechanical Engineering',
         'Electrical & Communications Engineering'
       ].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
